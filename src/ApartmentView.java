@@ -92,7 +92,7 @@ public class ApartmentView implements  ViewInterface{
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldsNames", "apartmentName, street, city, state, zip_code");
+        parameters.put("fieldNames", "apartmentName, street, city, state, zip_code");
 
         List<Object> rows = new ArrayList<>();
 
