@@ -97,6 +97,6 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return ReceiptDescription+ ", " +ResidentID+", "+ ReceiptAmount+", "+ ReceiptTime+ ", " + isExpense;
+        return ReceiptID+", "+ReceiptDescription+ ", " +ResidentID+", "+ ReceiptAmount+", "+ ReceiptTime+ ", " + isExpense;
     }
 }
