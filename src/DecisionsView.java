@@ -99,7 +99,7 @@ public class DecisionsView implements ViewInterface {
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "DecisionID, ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate, isAccepted");
+        parameters.put("fieldNames", "ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate, isAccepted");
 
         List<Object> rows = new ArrayList<>();
 
