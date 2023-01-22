@@ -2,7 +2,7 @@
     ***Status***
     Hilal = " "
     Umut = "Person cart curt"
-    Mert = " Decision "
+    Mert = " Decisions "
 
 * In this system there are people. These people can be residents of the apartment, apartment manager (resident or an external person - then you should pay for this person), apartment manager assistant, controller (who looks at the expenses and check, kind of inspector), apartment serviceman (apartman görevlisi), and people you get service as apartment (repairmen etc). 
 

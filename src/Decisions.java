@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Decision {
+public class Decisions {
     private int DecisionID;
     private int ApartmentID;
     private String DecisionDescription;
@@ -8,9 +8,9 @@ public class Decision {
     private int VoteNo;
     private Date DecisionDate;
     private String isAccepted;
-    Decision(){}
+    Decisions(){}
 
-    public Decision(int apartmentID, String decisionDescription, int voteYes, int voteNo, Date decisionDate, String isAccepted) {
+    public Decisions(int apartmentID, String decisionDescription, int voteYes, int voteNo, Date decisionDate, String isAccepted) {
         ApartmentID = apartmentID;
         DecisionDescription = decisionDescription;
         VoteYes = voteYes;

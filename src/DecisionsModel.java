@@ -3,7 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-public class DecisionModel implements ModelInterface{
+public class DecisionsModel implements ModelInterface{
 
 
     @Override
@@ -11,7 +11,7 @@ public class DecisionModel implements ModelInterface{
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT ");
         sql.append("	* ");
-        sql.append(" FROM dbo.Decision ");
+        sql.append(" FROM dbo.Decisions ");
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -30,7 +30,7 @@ public class DecisionModel implements ModelInterface{
     @Override
     public int insert(String fieldNames, List<Object> rows) throws Exception {
         StringBuilder sql = new StringBuilder();
-        sql.append(" INSERT INTO dbo.Decision (").append(fieldNames).append(") ");
+        sql.append(" INSERT INTO dbo.Decisions (").append(fieldNames).append(") ");
         sql.append(" VALUES ");
 
         String[] fieldList = fieldNames.split(",");
@@ -39,13 +39,13 @@ public class DecisionModel implements ModelInterface{
 
         int rowCount = 0;
         for (int i=0; i<rows.size(); i++) {
-            if (rows.get(i) instanceof Decision decision) {
+            if (rows.get(i) instanceof Decisions decisions) {
                 rowCount++;
 
                 sql.append("(");
                 for (int j=0; j<fieldList.length; j++) {
                     String fieldName = fieldList[j].trim();
-                    sql.append(DatabaseUtilities.formatField(decision.getByName(fieldName)));
+                    sql.append(DatabaseUtilities.formatField(decisions.getByName(fieldName)));
                     if (j < fieldList.length - 1) {
                         sql.append(", ");
                     }
@@ -75,7 +75,7 @@ public class DecisionModel implements ModelInterface{
     public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" UPDATE dbo.Decision SET ");
+        sql.append(" UPDATE dbo.Decisions SET ");
         int appendCount = 0;
         for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
             sql.append(entry.getKey()).append(" = ").append(DatabaseUtilities.formatField(entry.getValue()));
@@ -101,7 +101,7 @@ public class DecisionModel implements ModelInterface{
     public int delete(Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" DELETE FROM dbo.Decision ");
+        sql.append(" DELETE FROM dbo.Decisions ");
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
