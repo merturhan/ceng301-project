@@ -18,6 +18,14 @@ public class Apartment {
         this.zip_code = zip_code;
     }
 
+    public Apartment(String apartmentName, String street, String city, String state, int zip_code) {
+        this.apartmentName = apartmentName;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip_code = zip_code;
+    }
+
     public int getApartmentID() {
         return apartmentID;
     }

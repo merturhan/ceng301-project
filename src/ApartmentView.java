@@ -82,6 +82,7 @@ public class ApartmentView implements  ViewInterface{
         if (zip_code != null) whereParameters.put("zip_code", zip_code);
         return whereParameters;
     }
+
     ViewData selectGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
@@ -89,7 +90,67 @@ public class ApartmentView implements  ViewInterface{
         return new ViewData("Apartment", "select", parameters);
     }
 
+    ViewData insertGUI(ModelData modelData) throws Exception {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("fieldsNames", "apartmentName, street, city, state, zip_code");
+
+        List<Object> rows = new ArrayList<>();
+
+        Integer zip_code;
+        String apartmentName, street, city, state;
+        do
+        {
+            System.out.println("Fields to insert:");
+            apartmentName = getString("Apartment Name : ", true);
+            street = getString("Street : ", true);
+            city = getString("City : ", true);
+            state = getString("State : ", true);
+            zip_code = getInteger("Zip Code : ", true);
+            System.out.println();
+
+            if (apartmentName != null && street != null && city != null && state != null && zip_code != null) {
+                rows.add(new Apartment(apartmentName, street, city, state, zip_code));
+            }
+        }
+        while (apartmentName != null && street != null && city != null && state != null && zip_code != null);
+
+        parameters.put("rows", rows);
+
+        return new ViewData("Apartment", "insert", parameters);
+    }
+
+    ViewData updateGUI(ModelData modelData) throws Exception {
+        System.out.println("Fields to update:");
+        String apartmentName = getString("Apartment Name : ", true);
+        String street = getString("Street : ", true);
+        String city = getString("City : ", true);
+        String state = getString("State : ",true);
+        Integer zip_code = getInteger("Zip Code : ",true);
+        System.out.println();
+
+        Map<String, Object> updateParameters = new HashMap<>();
+        if (apartmentName != null) updateParameters.put("apartmentName", apartmentName);
+        if (street != null) updateParameters.put("street", street);
+        if (city != null) updateParameters.put("city", city);
+        if (state != null) updateParameters.put("state", state);
+        if (zip_code != null) updateParameters.put("zip_code", zip_code);
 
 
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("updateParameters", updateParameters);
+        parameters.put("whereParameters", getWhereParameters());
 
+        return new ViewData("Apartment", "update", parameters);
+    }
+
+    ViewData deleteGUI(ModelData modelData) throws Exception {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("whereParameters", getWhereParameters());
+
+        return new ViewData("Apartment", "delete", parameters);
+    }
+    @Override
+    public String toString() {
+        return "ApartmentView{}";
+    }
 }
