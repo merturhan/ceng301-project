@@ -4,7 +4,6 @@ public class ModelViewControllerConsole {
 	public static void main(String[] args) throws Exception {
 		// Connect to database
 		connectToDatabase();
-
 		
 		// Model View Controller (MVC)
 		// Router knows all the controllers
