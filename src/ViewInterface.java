@@ -1,5 +1,6 @@
 import java.text.*;
-import java.util.*;
+import java.util.Scanner;
+import java.sql.Date;
 
 interface ViewInterface {
 	public static final Scanner scanner = new Scanner(System.in); 
@@ -141,16 +142,18 @@ interface ViewInterface {
 			}			
 			else {
 				try {
-				    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				    inputValue = formatter.parse(input);	
+				    //DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				    //inputValue = formatter.parse(input);
+					inputValue = Date.valueOf(input);
+					System.out.println("date : " + inputValue);
 				}
 				catch(Exception e) {
 					inputValue = null;
 				}
 			}
 		}
-		while (inputValue == null);		
-		
+		while (inputValue == null);
+		System.out.println(inputValue.toString());
 		return inputValue;
 	}
 		
