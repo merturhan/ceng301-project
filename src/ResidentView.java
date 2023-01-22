@@ -42,7 +42,7 @@ public class ResidentView implements ViewInterface{
                 System.out.print(residentName + "\t");
                 System.out.print(residentPhoneNum + "\t");
                 System.out.print(paidFlag + "\t");
-                System.out.print(flatId + "\t");
+                System.out.println(flatId);
             }
             resultSet.close();
         }

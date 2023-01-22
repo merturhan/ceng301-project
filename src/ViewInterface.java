@@ -12,7 +12,7 @@ interface ViewInterface {
 		switch (choice) {
 			case 1 -> tableName = "Person";
 			case 2 -> tableName = "Manager";
-			case 3 -> tableName = "AsistantManager";
+			case 3 -> tableName = "AssistantManager";
 			case 4 -> tableName = "Controller";
 			case 5 -> tableName = "Resident";
 			case 6 -> tableName = "Apartment";

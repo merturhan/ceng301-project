@@ -40,13 +40,13 @@ public class ControllerAptModel implements ModelInterface
 
         int rowCount = 0;
         for (int i=0; i<rows.size(); i++) {
-            if (rows.get(i) instanceof Person person) {
+            if (rows.get(i) instanceof ControllerApt Controller) {
                 rowCount++;
 
                 sql.append("(");
                 for (int j=0; j<fieldList.length; j++) {
                     String fieldName = fieldList[j].trim();
-                    sql.append(DatabaseUtilities.formatField(person.getByName(fieldName)));
+                    sql.append(DatabaseUtilities.formatField(Controller.getByName(fieldName)));
                     if (j < fieldList.length - 1) {
                         sql.append(", ");
                     }

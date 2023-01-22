@@ -10,10 +10,10 @@ public class ModelViewControllerConsole {
 		Map<String, Controller> router = new HashMap<>();		
 		router.put("MainMenu", new Controller(new MainMenuView(), new NopModel()));
 		router.put("Person", new Controller(new PersonView(), new PersonModel()));
-		router.put("Manager", new Controller(new ResidentView(), new PersonModel()));
-		router.put("AssistantManager", new Controller(new ResidentView(), new PersonModel()));
-		router.put("Controller", new Controller(new ResidentView(), new PersonModel()));
-		router.put("Resident", new Controller(new ResidentView(), new PersonModel()));
+		router.put("Manager", new Controller(new ManagerView(), new ManagerModel()));
+		router.put("AssistantManager", new Controller(new AssistantManagerView(), new AssistantManagerModel()));
+		router.put("Controller", new Controller(new ControllerAptView(), new ControllerAptModel()));
+		router.put("Resident", new Controller(new ResidentView(), new ResidentModel()));
 		router.put("Apartment", new Controller(new ApartmentView(),new ApartmentModel()));
 		router.put("Decisions", new Controller(new DecisionsView(), new DecisionsModel()));
 

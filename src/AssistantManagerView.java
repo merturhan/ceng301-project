@@ -30,8 +30,8 @@ public class AssistantManagerView implements ViewInterface
                 Integer assistantManagerID = resultSet.getInt("assistantManagerID");
                 Integer personID = resultSet.getInt("personID");
                 Integer managerID = resultSet.getInt("managerID");
-                String residentID = resultSet.getString("residentID");
-                Integer assistantManagerName = resultSet.getInt("assistantManagerName");
+                Integer residentID = resultSet.getInt("residentID");
+                String assistantManagerName = resultSet.getString("assistantManagerName");
 
                 // Display values
                 System.out.print(assistantManagerID + "\t");
@@ -91,7 +91,7 @@ public class AssistantManagerView implements ViewInterface
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "assistantManagerID, personID, managerID, residentID, assistantManagerName");
+        parameters.put("fieldNames", "personID, managerID, residentID, assistantManagerName");
 
         List<Object> rows = new ArrayList<>();
 
@@ -119,33 +119,35 @@ public class AssistantManagerView implements ViewInterface
 
     ViewData updateGUI(ModelData modelData) throws Exception {
         System.out.println("Fields to update:");
-        Integer apartmentID = getInteger("Apartment ID : ",true);
-        String personName = getString("Person Name : ", true);
-        Integer personStatus = getInteger("Person Status : ",true);
+        Integer personID = getInteger("Person ID : ",true);
+        Integer managerID = getInteger("Resident ID : ",true);
+        Integer residentID = getInteger("Resident ID : ",true);
+        String assistantManagerName = getString("Assistant Manager Name : ", true);
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
-        if (apartmentID != null) updateParameters.put("apartmentID", apartmentID);
-        if (personName != null) updateParameters.put("personName", personName);
-        if (personStatus != null) updateParameters.put("personStatus", personStatus);
+        if (personID != null) updateParameters.put("personID", personID);
+        if (managerID != null) updateParameters.put("managerID", managerID);
+        if (residentID != null) updateParameters.put("residentID", residentID);
+        if (assistantManagerName != null) updateParameters.put("assistantManagerName", assistantManagerName);
 
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Person", "update", parameters);
+        return new ViewData("AssistantManager", "update", parameters);
     }
 
     ViewData deleteGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Person", "delete", parameters);
+        return new ViewData("AssistantManager", "delete", parameters);
     }
 
     @Override
     public String toString() {
-        return "PersonView";
+        return "AssistantManagerView";
     }
 }
