@@ -41,13 +41,13 @@ class Department {
 	public void setModifiedDate(Date modifiedDate) { this.modifiedDate = modifiedDate; }
 	
 	public Object getByName(String attributeName) {
-		switch (attributeName) {
-		case "DepartmentID": return departmentID;
-		case "Name": return name;
-		case "GroupName": return groupName;
-		case "ModifiedDate": return modifiedDate;
-		default: return null;
-		}
+		return switch (attributeName) {
+			case "DepartmentID" -> departmentID;
+			case "Name" -> name;
+			case "GroupName" -> groupName;
+			case "ModifiedDate" -> modifiedDate;
+			default -> null;
+		};
 	}
 	
 	@Override
