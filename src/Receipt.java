@@ -19,13 +19,20 @@ public class Receipt {
     }
 
     public Receipt(String receiptDescription, int residentID, float receiptAmount, Date receiptTime, int isExpense) {
-        ReceiptDescription = receiptDescription;
-        ResidentID = residentID;
-        receiptAmount = receiptAmount;
-        receiptTime = receiptTime;
+        this.ReceiptDescription = receiptDescription;
+        this.ResidentID = residentID;
+        this.ReceiptAmount = receiptAmount;
+        this.ReceiptTime = receiptTime;
         this.isExpense = isExpense;
     }
 
+
+    public Receipt(String receiptDescription, int residentID, float receiptAmount, int isExpense) {
+        this.ReceiptDescription = receiptDescription;
+        this.ResidentID = residentID;
+        this.ReceiptAmount = receiptAmount;
+        this.isExpense = isExpense;
+    }
 
     public int getReceiptID() {
         return ReceiptID;
@@ -90,6 +97,6 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return ReceiptDescription+ ", " +ResidentID+", "+ ReceiptAmount+", "+ ReceiptTime+ ", " + isExpense;
+        return ReceiptID+", "+ReceiptDescription+ ", " +ResidentID+", "+ ReceiptAmount+", "+ ReceiptTime+ ", " + isExpense;
     }
 }

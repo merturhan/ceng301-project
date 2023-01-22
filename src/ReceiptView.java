@@ -56,7 +56,7 @@ public class ReceiptView implements ViewInterface{
         String ReceiptDescription = getString("ReceiptDescription : ", true);
         Integer ResidentID = getInteger("ResidentID : ", true);
         Float ReceiptAmount = getFloat("ReceiptAmount : ", true);
-        Date  ReceiptTime = getDate("ReceiptTime : ", true);
+        //Date  ReceiptTime = getDate("ReceiptTime : ", true);
         Integer isExpense = getInteger("isExpense : ", true);
 
 
@@ -66,7 +66,7 @@ public class ReceiptView implements ViewInterface{
         if (ReceiptDescription != null) whereParameters.put("ReceiptDescription", ReceiptDescription);
         if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
         if (ReceiptAmount != null) whereParameters.put("ReceiptAmount", ReceiptAmount);
-        if (ReceiptTime != null) whereParameters.put("ReceiptTime", ReceiptTime);
+       // if (ReceiptTime != null) whereParameters.put("ReceiptTime", ReceiptTime);
         if (isExpense != null) whereParameters.put("isExpense", isExpense);
 
         return whereParameters;
@@ -81,7 +81,7 @@ public class ReceiptView implements ViewInterface{
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "ReceiptDescription, ResidentID, ReceiptAmount, ReceiptTime, isExpense");
+        parameters.put("fieldNames", "ReceiptDescription, ResidentID, ReceiptAmount, isExpense");
 
         List<Object> rows = new ArrayList<>();
 
@@ -95,15 +95,15 @@ public class ReceiptView implements ViewInterface{
             ReceiptDescription = getString("Receipt Description : ", true);
             ResidentID = getInteger("Resident ID : ",true);
             ReceiptAmount = getFloat("Receipt Amount : ", true);
-            ReceiptTime = getDate("Receipt Time : ",true);
+            //ReceiptTime = getDate("Receipt Time : ",true);
             isExpense = getInteger("isExpense  : ",true);
             System.out.println();
 
-            if (ReceiptDescription != null && ResidentID != null && ReceiptAmount != null&& ReceiptTime != null&& isExpense != null) {
-                rows.add(new Receipt(ReceiptDescription,ResidentID, ReceiptAmount,ReceiptTime,isExpense));
+            if (ReceiptDescription != null && ResidentID != null && ReceiptAmount != null&& isExpense != null) {
+                rows.add(new Receipt(ReceiptDescription,ResidentID, ReceiptAmount,isExpense));
             }
         }
-        while (ReceiptDescription != null && ResidentID != null && ReceiptAmount != null&& isExpense != null&& ReceiptTime != null);
+        while (ReceiptDescription != null && ResidentID != null && ReceiptAmount != null&& isExpense != null);
 
         parameters.put("rows", rows);
 
@@ -115,7 +115,7 @@ public class ReceiptView implements ViewInterface{
         String ReceiptDescription = getString("ReceiptDescription : ", true);
         Integer ResidentID = getInteger("ResidentID : ", true);
         Float ReceiptAmount = getFloat("ReceiptAmount : ", true);
-        Date  ReceiptTime = getDate("ReceiptTime : ", true);
+       // Date  ReceiptTime = getDate("ReceiptTime : ", true);
         Integer isExpense = getInteger("isExpense : ", true);
         System.out.println();
 
@@ -123,7 +123,7 @@ public class ReceiptView implements ViewInterface{
         if (ReceiptDescription != null) updateParameters.put("ReceiptDescription", ReceiptDescription);
         if (ResidentID != null) updateParameters.put("ResidentID", ResidentID);
         if (ReceiptAmount != null) updateParameters.put("ReceiptAmount", ReceiptAmount);
-        if (ReceiptTime != null) updateParameters.put("ReceiptTime", ReceiptTime);
+        //if (ReceiptTime != null) updateParameters.put("ReceiptTime", ReceiptTime);
         if (isExpense != null) updateParameters.put("isExpense", isExpense);
 
 
