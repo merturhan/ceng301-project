@@ -3,21 +3,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-public class DecisionsModel implements ModelInterface{
 
-
+public class ControllerAptModel implements ModelInterface
+{
     @Override
     public ResultSet select(Map<String, Object> whereParameters) throws Exception {
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT ");
         sql.append("	* ");
-        sql.append(" FROM dbo.Decisions ");
+        sql.append(" FROM dbo.Controller ");
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
 
-        sql.append("ORDER BY decisionID");
+        sql.append("ORDER BY controllerID");
         //System.out.println(sql.toString() + "\n");
+
 
         // execute constructed SQL statement
         Connection connection = DatabaseUtilities.getConnection();
@@ -30,22 +31,22 @@ public class DecisionsModel implements ModelInterface{
     @Override
     public int insert(String fieldNames, List<Object> rows) throws Exception {
         StringBuilder sql = new StringBuilder();
-        sql.append(" INSERT INTO dbo.Decisions (").append(fieldNames).append(") ");
+        sql.append(" INSERT INTO dbo.Controller (").append(fieldNames).append(") ");
         sql.append(" VALUES ");
 
         String[] fieldList = fieldNames.split(",");
 
-        for(String s:fieldList) System.out.println(s);
+        //for(String s:fieldList) System.out.println(s);
 
         int rowCount = 0;
         for (int i=0; i<rows.size(); i++) {
-            if (rows.get(i) instanceof Decisions decisions) {
+            if (rows.get(i) instanceof Person person) {
                 rowCount++;
 
                 sql.append("(");
                 for (int j=0; j<fieldList.length; j++) {
                     String fieldName = fieldList[j].trim();
-                    sql.append(DatabaseUtilities.formatField(decisions.getByName(fieldName)));
+                    sql.append(DatabaseUtilities.formatField(person.getByName(fieldName)));
                     if (j < fieldList.length - 1) {
                         sql.append(", ");
                     }
@@ -59,6 +60,7 @@ public class DecisionsModel implements ModelInterface{
         }
         //System.out.println(sql.toString());
 
+
         // execute constructed SQL statement
         if (rowCount > 0) {
             Connection connection = DatabaseUtilities.getConnection();
@@ -69,13 +71,12 @@ public class DecisionsModel implements ModelInterface{
 
         return rowCount;
     }
-        //System.out.println(sql.toString());
 
     @Override
     public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" UPDATE dbo.Decisions SET ");
+        sql.append(" UPDATE dbo.Controller SET ");
         int appendCount = 0;
         for (Map.Entry<String, Object> entry : updateParameters.entrySet()) {
             sql.append(entry.getKey()).append(" = ").append(DatabaseUtilities.formatField(entry.getValue()));
@@ -86,6 +87,7 @@ public class DecisionsModel implements ModelInterface{
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
         //System.out.println(sql.toString());
+
 
         // execute constructed SQL statement
         Connection connection = DatabaseUtilities.getConnection();
@@ -101,7 +103,7 @@ public class DecisionsModel implements ModelInterface{
     public int delete(Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" DELETE FROM dbo.Decisions ");
+        sql.append(" DELETE FROM dbo.Controller ");
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -116,5 +118,10 @@ public class DecisionsModel implements ModelInterface{
         preparedStatement.close();
 
         return rowCount;
+    }
+
+    @Override
+    public String toString() {
+        return "ControllerModel";
     }
 }
