@@ -24,21 +24,27 @@ public class ApartmentView implements  ViewInterface{
         if (resultSet != null) {
             while (resultSet.next()) {
                 // Retrieve by column name
-                Integer personID = resultSet.getInt("personID");
                 Integer apartmentID = resultSet.getInt("apartmentID");
-                String personName = resultSet.getString("personName");
-                Integer personStatus = resultSet.getInt("personStatus");
+                String apartmentName = resultSet.getString("apartmentName");
+                String street = resultSet.getString("street");
+                String city = resultSet.getString("city");
+                String state = resultSet.getString("state");
+                Integer zip_code = resultSet.getInt("zip_code");
 
                 // Display values
-                System.out.print(personID + "\t");
                 System.out.print(apartmentID + "\t");
-                System.out.print(personName + "\t");
-                System.out.println(personStatus);
+                System.out.print(apartmentName + "\t");
+                System.out.print(street + "\t");
+                System.out.println(city + "\t");
+                System.out.println(state + "\t");
+                System.out.println(zip_code + "\t");
             }
             resultSet.close();
         }
 
         return new ViewData("MainMenu", "");
     }
+
+    
 
 }
