@@ -1,3 +1,9 @@
+
+    ***Status***
+    Hilal = " "
+    Umut = " "
+    Mert = "Apartment MVC yi yapmaya çalışıyorum"
+
 * In this system there are people. These people can be residents of the apartment, apartment manager (resident or an external person - then you should pay for this person), apartment manager assistant, controller (who looks at the expenses and check, kind of inspector), apartment serviceman (apartman görevlisi), and people you get service as apartment (repairmen etc). 
 
 * In some apartments (by law if there are more than 9 residents), apartment manager do not pay dues (aidat). This should be decided by the apartment residents via majority voting.
