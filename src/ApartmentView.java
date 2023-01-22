@@ -80,7 +80,6 @@ public class ApartmentView implements  ViewInterface{
         if (city != null) whereParameters.put("city", city);
         if (state != null) whereParameters.put("state", state);
         if (zip_code != null) whereParameters.put("zip_code", zip_code);
-
         return whereParameters;
     }
 
@@ -91,6 +90,6 @@ public class ApartmentView implements  ViewInterface{
         return new ViewData("Apartment", "select", parameters);
     }
 
-    
+
 
 }
