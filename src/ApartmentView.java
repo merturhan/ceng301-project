@@ -82,13 +82,13 @@ public class ApartmentView implements  ViewInterface{
         if (zip_code != null) whereParameters.put("zip_code", zip_code);
         return whereParameters;
     }
-
     ViewData selectGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
         return new ViewData("Apartment", "select", parameters);
     }
+
 
 
 
