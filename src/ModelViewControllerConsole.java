@@ -12,6 +12,7 @@ public class ModelViewControllerConsole {
 		router.put("MainMenu", new Controller(new MainMenuView(), new NopModel()));
 		router.put("Person", new Controller(new PersonView(), new PersonModel()));
 		router.put("Resident", new Controller(new ResidentView(), new PersonModel()));
+		router.put("Apartment", new Controller(new ApartmentView(),new ApartmentModel()));
 
 		ViewData viewData = new ViewData("MainMenu", "");		
 		do {
@@ -37,7 +38,8 @@ public class ModelViewControllerConsole {
 
 	
 	public static void connectToDatabase() {
-		DatabaseUtilities.host = "UBO:55161";
+		//DatabaseUtilities.host = "UBO:55161";
+		//DatabaseUtilities.host = "DESKTOP-M8BB118\\SQLEXPRESS:49670";
 		DatabaseUtilities.databaseName = "BuildingSiteManagement";
 		
 		try {

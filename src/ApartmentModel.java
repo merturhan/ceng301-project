@@ -37,7 +37,7 @@ public class ApartmentModel  implements  ModelInterface{
 
         String[] fieldList = fieldNames.split(",");
 
-        //for(String s:fieldList) System.out.println(s);
+        for(String s:fieldList) System.out.println(s);
 
         int rowCount = 0;
         for (int i=0; i<rows.size(); i++) {

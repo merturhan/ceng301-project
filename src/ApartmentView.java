@@ -29,14 +29,14 @@ public class ApartmentView implements  ViewInterface{
                 String street = resultSet.getString("street");
                 String city = resultSet.getString("city");
                 String state = resultSet.getString("state");
-                Integer zip_code = resultSet.getInt("zip_code");
+                String zip_code = resultSet.getString("zip_code");
 
                 // Display values
                 System.out.print(apartmentID + "\t");
                 System.out.print(apartmentName + "\t");
                 System.out.print(street + "\t");
-                System.out.println(city + "\t");
-                System.out.println(state + "\t");
+                System.out.print(city + "\t");
+                System.out.print(state + "\t");
                 System.out.println(zip_code + "\t");
             }
             resultSet.close();
@@ -70,7 +70,7 @@ public class ApartmentView implements  ViewInterface{
         String street = getString("Street : ", true);
         String city = getString("City : ", true);
         String state = getString("State : ", true);
-        Integer zip_code = getInteger("Zip Code : ", true);
+        String zip_code = getString("Zip Code : ", true);
 
 
         Map<String, Object> whereParameters = new HashMap<>();
@@ -96,8 +96,7 @@ public class ApartmentView implements  ViewInterface{
 
         List<Object> rows = new ArrayList<>();
 
-        Integer zip_code;
-        String apartmentName, street, city, state;
+        String apartmentName, street, city, state, zip_code;
         do
         {
             System.out.println("Fields to insert:");
@@ -105,7 +104,7 @@ public class ApartmentView implements  ViewInterface{
             street = getString("Street : ", true);
             city = getString("City : ", true);
             state = getString("State : ", true);
-            zip_code = getInteger("Zip Code : ", true);
+            zip_code = getString("Zip Code : ", true);
             System.out.println();
 
             if (apartmentName != null && street != null && city != null && state != null && zip_code != null) {
@@ -125,7 +124,7 @@ public class ApartmentView implements  ViewInterface{
         String street = getString("Street : ", true);
         String city = getString("City : ", true);
         String state = getString("State : ",true);
-        Integer zip_code = getInteger("Zip Code : ",true);
+        String zip_code = getString("Zip Code : ",true);
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();

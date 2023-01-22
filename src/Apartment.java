@@ -5,11 +5,11 @@ public class Apartment {
     private String street;
     private String city;
     private String state;
-    private int zip_code;
+    private String zip_code;
 
     Apartment(){}
 
-    public Apartment(int apartmentID, String apartmentName, String street, String city, String state, int zip_code) {
+    public Apartment(int apartmentID, String apartmentName, String street, String city, String state, String zip_code) {
         this.apartmentID = apartmentID;
         this.apartmentName = apartmentName;
         this.street = street;
@@ -18,7 +18,7 @@ public class Apartment {
         this.zip_code = zip_code;
     }
 
-    public Apartment(String apartmentName, String street, String city, String state, int zip_code) {
+    public Apartment(String apartmentName, String street, String city, String state, String zip_code) {
         this.apartmentName = apartmentName;
         this.street = street;
         this.city = city;
@@ -66,11 +66,11 @@ public class Apartment {
         this.state = state;
     }
 
-    public int getZip_code() {
+    public String getZip_code() {
         return zip_code;
     }
 
-    public void setZip_code(int zip_code) {
+    public void setZip_code(String zip_code) {
         this.zip_code = zip_code;
     }
 
