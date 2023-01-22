@@ -6,6 +6,7 @@ public class Apartment {
     private String city;
     private String state;
     private String zip_code;
+    private int residentCounter;
 
     Apartment(){}
 
@@ -72,6 +73,14 @@ public class Apartment {
 
     public void setZip_code(String zip_code) {
         this.zip_code = zip_code;
+    }
+
+    public int getResidentCounter() {
+        return residentCounter;
+    }
+
+    public void setResidentCounter(int residentCounter) {
+        this.residentCounter = residentCounter;
     }
 
     public Object getByName (String attributeName){
