@@ -32,6 +32,7 @@ public class MovedFlatModel implements  ModelInterface{
         sql.append(" INSERT INTO dbo.movedFlat (").append(fieldNames).append(") ");
         sql.append(" VALUES ");
 
+
         StringBuilder sql2 = new StringBuilder();
 
         String[] fieldList = fieldNames.split(",");

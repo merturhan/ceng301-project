@@ -70,6 +70,7 @@ public class MovedFlatView implements  ViewInterface{
         StringBuilder leavingDate = getDate("Leaving Date (YYYY-MM-DD) : ", true);
 
 
+        
 
         Map<String, Object> whereParameters = new HashMap<>();
         if (oldFlatID != null) whereParameters.put("oldFlatID", oldFlatID);

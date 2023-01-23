@@ -14,6 +14,7 @@ public class MovedFlat {
         this.apartmentID = apartmentID;
         this.enteranceDate = enteranceDate;
         this.leavingDate = leavingDate;
+
     }
 
     public int getFlatHistory() {
