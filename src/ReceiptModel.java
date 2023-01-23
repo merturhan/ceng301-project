@@ -73,6 +73,7 @@ public class ReceiptModel implements ModelInterface {
                 sql2.append("(ReceiptId, ControllerId) ");
                 sql2.append("SELECT ReceiptId, " );
                 sql2.append("ControllerId ");
+
                 sql2.append("FROM Receipt ");
 
 
