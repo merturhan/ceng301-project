@@ -5,11 +5,11 @@ public class Receipt {
     private String ReceiptDescription;
     private int ResidentID;
     private float ReceiptAmount;
-    private Date ReceiptTime;
+    private StringBuilder ReceiptTime;
     private int isExpense;
 
 
-    public Receipt(int receiptID, String receiptDescription, int residentID, float receiptAmount, Date receiptTime, int isExpense) {
+    public Receipt(int receiptID, String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime, int isExpense) {
         this.ReceiptID = receiptID;
         this.ReceiptDescription = receiptDescription;
         this.ResidentID = residentID;
@@ -18,7 +18,7 @@ public class Receipt {
         this.isExpense = isExpense;
     }
 
-    public Receipt(String receiptDescription, int residentID, float receiptAmount, Date receiptTime, int isExpense) {
+    public Receipt(String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime, int isExpense) {
         this.ReceiptDescription = receiptDescription;
         this.ResidentID = residentID;
         this.ReceiptAmount = receiptAmount;
@@ -66,11 +66,11 @@ public class Receipt {
         ReceiptAmount = receiptAmount;
     }
 
-    public Date getReceiptTime() {
+    public StringBuilder getReceiptTime() {
         return ReceiptTime;
     }
 
-    public void setReceiptTime(Date receiptTime) {
+    public void setReceiptTime(StringBuilder receiptTime) {
         ReceiptTime = receiptTime;
     }
 

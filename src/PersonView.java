@@ -2,6 +2,8 @@ import java.sql.ResultSet;
 import java.util.*;
 
 public class PersonView implements ViewInterface {
+    private ManagerView managerView;
+    private Person person;
     @Override
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
         return switch (operationName) {
@@ -86,7 +88,6 @@ public class PersonView implements ViewInterface {
         parameters.put("fieldNames", "apartmentID, personName, personStatus");
 
         List<Object> rows = new ArrayList<>();
-
         Integer apartmentID,personStatus;
         String personName;
         do
@@ -97,11 +98,14 @@ public class PersonView implements ViewInterface {
             personStatus = getInteger("Person Status : ", true);
             System.out.println();
 
+            System.out.println(personStatus);
+
             if (apartmentID != null && personName != null && personStatus != null) {
                 rows.add(new Person(apartmentID,personName, personStatus));
             }
         }
         while (apartmentID != null && personName != null && personStatus != null);
+
 
         parameters.put("rows", rows);
 

@@ -5,6 +5,18 @@ public class ViewData {
 	final String operationName;
 	final Map<String, Object> viewParameters;
 
+	public String getFunctionName() {
+		return functionName;
+	}
+
+	public String getOperationName() {
+		return operationName;
+	}
+
+	public Map<String, Object> getViewParameters() {
+		return viewParameters;
+	}
+
 	ViewData(String functionName, String operationName) {
 		this.functionName = functionName;
 		this.operationName = operationName;

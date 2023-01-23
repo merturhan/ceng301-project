@@ -1,5 +1,4 @@
 import java.text.*;
-import java.time.LocalDate;
 import java.util.*;
 
 interface ViewInterface {
@@ -129,8 +128,9 @@ interface ViewInterface {
 		return inputValue;
 	}
 
-	public default Date getDate(String prompt, boolean allowNulls) throws ParseException {
-		Date inputValue;
+	public default StringBuilder getDate(String prompt, boolean allowNulls) throws ParseException {
+		StringBuilder inputValue = new StringBuilder();
+		inputValue.append("CAST((' ");
 		do {
 			System.out.print(prompt);
 			String input = scanner.nextLine();
@@ -142,8 +142,8 @@ interface ViewInterface {
 			}
 			else {
 				try {
-					DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-					inputValue = formatter.parse(input);
+					inputValue.append(input);
+					inputValue.append(" ') AS DATE)");
 				}
 				catch(Exception e) {
 					inputValue = null;
@@ -151,7 +151,7 @@ interface ViewInterface {
 			}
 		}
 		while (inputValue == null);
-
+		//System.out.println(inputValue);
 		return inputValue;
 	}
 		
