@@ -11,6 +11,7 @@ public class Receipt {
 
     public Receipt(int receiptID, String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime, int isExpense) {
         this.ReceiptID = receiptID;
+
         this.ReceiptDescription = receiptDescription;
         this.ResidentID = residentID;
         this.ReceiptAmount = receiptAmount;
