@@ -30,6 +30,7 @@ public class ApartmentView implements  ViewInterface{
                 String city = resultSet.getString("city");
                 String state = resultSet.getString("state");
                 String zip_code = resultSet.getString("zip_code");
+                int residentCounter = resultSet.getInt("residentCounter");
 
                 // Display values
                 System.out.print(apartmentID + "\t");
@@ -37,7 +38,8 @@ public class ApartmentView implements  ViewInterface{
                 System.out.print(street + "\t");
                 System.out.print(city + "\t");
                 System.out.print(state + "\t");
-                System.out.println(zip_code + "\t");
+                System.out.print(zip_code + "\t");
+                System.out.println(residentCounter + "\t");
             }
             resultSet.close();
         }
