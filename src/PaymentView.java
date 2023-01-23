@@ -95,7 +95,7 @@ public class PaymentView implements ViewInterface {
 
             if (ResidentId != null && ReceiptId != null) {
 
-                rows.add(new Expense(ResidentId, ReceiptId));
+                rows.add(new Payment(ResidentId, ReceiptId));
 
 
             }
