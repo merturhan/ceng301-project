@@ -36,7 +36,6 @@ public class ReceiptModel implements ModelInterface {
         String[] fieldList = fieldNames.split(",");
 
         //for(String s:fieldList) System.out.println(s);
-        int flag = 0;
         int rowCount = 0;
         for (int i=0; i<rows.size(); i++) {
             if (rows.get(i) instanceof Receipt receipt) {
@@ -51,7 +50,6 @@ public class ReceiptModel implements ModelInterface {
                     }
                 }
                 sql.append(")");
-                flag = receipt.getIsExpense();
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
@@ -63,39 +61,34 @@ public class ReceiptModel implements ModelInterface {
             rowCount = preparedStatement.executeUpdate();
             preparedStatement.close();
         }
-        if(flag == 1){
 
-            System.out.println("Is expense or payment? (e,p)");
-            String choice = scan.nextLine();
-            if(choice.equals("e")){
-                System.out.println("girdi");
-                sql2.append("INSERT INTO Expense ");
-                sql2.append("(ReceiptId, ControllerId) ");
-                sql2.append("SELECT ReceiptId, " );
-                sql2.append("ControllerId ");
+        System.out.println("Is expense or payment? (e,p)");
+        String choice = scan.nextLine();
+        if(choice.equals("e")){
+            System.out.println("girdi");
+            sql2.append("INSERT INTO Expense ");
+            sql2.append("(ReceiptId, ControllerId) ");
+            sql2.append("SELECT ReceiptId, " );
+            sql2.append("ControllerId ");
+            sql2.append("FROM Receipt ");
 
-                sql2.append("FROM Receipt ");
-
-
-
-            }
-
-            else if(choice.equals("p")){
-
-                sql2.append("INSERT INTO dbo.Payment ");
-                sql2.append("(ResidentId, ReceiptId) ");
-                sql2.append("SELECT ResidentId, ReceiptId ");
-                sql2.append("FROM dbo.Receipt ");
-
-            }
-            else{
-                System.out.println("Unrecognized answer.");
-            }
-
-            Connection connection = DatabaseUtilities.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
-            preparedStatement.execute();
         }
+
+        else if(choice.equals("p")){
+
+            sql2.append("INSERT INTO dbo.Payment ");
+            sql2.append("(ResidentId, ReceiptId) ");
+            sql2.append("SELECT ResidentId, ReceiptId ");
+            sql2.append("FROM dbo.Receipt ");
+
+        }
+        else{
+            System.out.println("Unrecognized answer.");
+        }
+
+        Connection connection = DatabaseUtilities.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
+        preparedStatement.execute();
 
 
         return rowCount;

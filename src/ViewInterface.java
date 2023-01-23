@@ -49,7 +49,7 @@ interface ViewInterface {
 		StringBuilder stringBuilder = new StringBuilder();
 		if (function.equals("Expenses in Period"))
 		{
-			stringBuilder.append("");
+			/*stringBuilder.append("");*/
 		}
 	}
 	public default Float getFloat(String prompt, boolean allowNulls) throws ParseException{

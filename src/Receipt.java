@@ -9,30 +9,27 @@ public class Receipt {
     private int isExpense;
 
 
-    public Receipt(int receiptID, String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime, int isExpense) {
+    public Receipt(int receiptID, String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime) {
         this.ReceiptID = receiptID;
 
         this.ReceiptDescription = receiptDescription;
         this.ResidentID = residentID;
         this.ReceiptAmount = receiptAmount;
         this.ReceiptTime = receiptTime;
-        this.isExpense = isExpense;
     }
 
-    public Receipt(String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime, int isExpense) {
+    public Receipt(String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime) {
         this.ReceiptDescription = receiptDescription;
         this.ResidentID = residentID;
         this.ReceiptAmount = receiptAmount;
         this.ReceiptTime = receiptTime;
-        this.isExpense = isExpense;
     }
 
 
-    public Receipt(String receiptDescription, int residentID, float receiptAmount, int isExpense) {
+    public Receipt(String receiptDescription, int residentID, float receiptAmount) {
         this.ReceiptDescription = receiptDescription;
         this.ResidentID = residentID;
         this.ReceiptAmount = receiptAmount;
-        this.isExpense = isExpense;
     }
 
     public int getReceiptID() {
@@ -90,7 +87,6 @@ public class Receipt {
             case "ResidentID" -> ResidentID;
             case "ReceiptAmount" -> ReceiptAmount;
             case "ReceiptTime" -> ReceiptTime;
-            case "isExpense" -> isExpense;
 
             default -> null;
         };
