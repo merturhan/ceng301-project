@@ -116,7 +116,7 @@ public class PersonModel implements ModelInterface {
                 sql2.append("SELECT t1.personID, ");
                 sql2.append("t1.apartmentID, ");
                 sql2.append("t1.personName, ");
-                sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
+                //sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
                 sql2.append("FROM Person t1,Manager m ");
                 sql2.append("WHERE NOT EXISTS(SELECT personID ");
                 sql2.append("FROM Resident t2 ");

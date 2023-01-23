@@ -8,15 +8,17 @@ public class Decisions {
     private int VoteNo;
     private StringBuilder DecisionDate;
     private String isAccepted;
+    private String isFullOrMajority;
     Decisions(){}
 
-    public Decisions(int apartmentID, String decisionDescription, int voteYes, int voteNo, StringBuilder decisionDate, String isAccepted) {
+    public Decisions(int apartmentID, String decisionDescription, int voteYes, int voteNo, StringBuilder decisionDate, String isAccepted, String isFullOrMajority) {
         ApartmentID = apartmentID;
         DecisionDescription = decisionDescription;
         VoteYes = voteYes;
         VoteNo = voteNo;
         DecisionDate = decisionDate;
         this.isAccepted = isAccepted;
+        this.isFullOrMajority = isFullOrMajority;
     }
 
     public int getDecisionID() {
@@ -75,6 +77,14 @@ public class Decisions {
         DecisionDate = decisionDate;
     }
 
+    public String getIsFullOrMajority() {
+        return isFullOrMajority;
+    }
+
+    public void setIsFullOrMajority(String isFullOrMajority) {
+        this.isFullOrMajority = isFullOrMajority;
+    }
+
     public Object getByName (String attributeName){
         return switch (attributeName){
             case "DecisionID" -> DecisionID;
@@ -84,6 +94,7 @@ public class Decisions {
             case "VoteNo" -> VoteNo;
             case "DecisionDate" -> DecisionDate;
             case "isAccepted" -> isAccepted;
+            case "isFullOrMajority" -> isFullOrMajority;
             default -> null;
         };
     }

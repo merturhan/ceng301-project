@@ -63,8 +63,8 @@ public class DecisionsModel implements ModelInterface{
             }
         }
         //System.out.println(sql.toString());
-        System.out.println("decision : " + DecisionDescription);
-        System.out.println("apt id = " + aptID);
+        //System.out.println("decision : " + DecisionDescription);
+        //System.out.println("apt id = " + aptID);
 
         // execute constructed SQL statement
         if (rowCount > 0) {
