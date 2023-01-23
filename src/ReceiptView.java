@@ -23,6 +23,7 @@ public class ReceiptView implements ViewInterface{
                 System.out.print(ReceiptDescription + "\t");
                 System.out.print(ResidentID + "\t");
                 System.out.print(ReceiptAmount+ "\t");
+
                 System.out.print(ReceiptTime + "\t");
                 System.out.println(isExpense);
             }
