@@ -3,8 +3,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 public class ReceiptModel implements ModelInterface {
-
+    private Scanner scan = new Scanner(System.in);
     @Override
     public ResultSet select(Map<String, Object> whereParameters) throws Exception {
         StringBuilder sql = new StringBuilder();
@@ -28,13 +29,14 @@ public class ReceiptModel implements ModelInterface {
     @Override
     public int insert(String fieldNames, List<Object> rows) throws Exception {
         StringBuilder sql = new StringBuilder();
+        StringBuilder sql2 = new StringBuilder();
         sql.append(" INSERT INTO dbo.Receipt (").append(fieldNames).append(") ");
         sql.append(" VALUES ");
 
         String[] fieldList = fieldNames.split(",");
 
         //for(String s:fieldList) System.out.println(s);
-
+        int flag = 0;
         int rowCount = 0;
         for (int i=0; i<rows.size(); i++) {
             if (rows.get(i) instanceof Receipt receipt) {
@@ -49,7 +51,7 @@ public class ReceiptModel implements ModelInterface {
                     }
                 }
                 sql.append(")");
-
+                flag = receipt.getIsExpense();
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
@@ -61,6 +63,35 @@ public class ReceiptModel implements ModelInterface {
             rowCount = preparedStatement.executeUpdate();
             preparedStatement.close();
         }
+        if(flag == 1){
+
+            System.out.println("Is expense or payment? (e,p)");
+            String choice = scan.nextLine();
+            if(choice.equals("e")){
+                System.out.println("girdi");
+                sql2.append("INSERT INTO Expense ");
+                sql2.append("(ReceiptId, ControllerId) ");
+                sql2.append("VALUES('8','8')");
+                //sql2.append("SELECT ReceiptId, " );
+                //sql2.append("ControllerId ");
+                //sql2.append("FROM Receipt ");
+
+
+
+            }
+            else if(choice.equals("p")){
+                sql2.append("INSERT INTO Payment ");
+                sql2.append("(ResidentId, ReceiptId) ");
+                sql2.append("SELECT ResidentId, ReceiptId ");
+                sql2.append("FROM Receipt ");
+
+            }
+            else{
+                System.out.println("Unrecognized answer.");
+            }
+
+        }
+
 
         return rowCount;
     }
