@@ -71,25 +71,29 @@ public class ReceiptModel implements ModelInterface {
                 System.out.println("girdi");
                 sql2.append("INSERT INTO Expense ");
                 sql2.append("(ReceiptId, ControllerId) ");
-                sql2.append("VALUES('8','8')");
-                //sql2.append("SELECT ReceiptId, " );
-                //sql2.append("ControllerId ");
-                //sql2.append("FROM Receipt ");
+                sql2.append("SELECT ReceiptId, " );
+                sql2.append("ControllerId ");
+                sql2.append("FROM Receipt ");
 
 
 
             }
+
             else if(choice.equals("p")){
-                sql2.append("INSERT INTO Payment ");
+
+                sql2.append("INSERT INTO dbo.Payment ");
                 sql2.append("(ResidentId, ReceiptId) ");
                 sql2.append("SELECT ResidentId, ReceiptId ");
-                sql2.append("FROM Receipt ");
+                sql2.append("FROM dbo.Receipt ");
 
             }
             else{
                 System.out.println("Unrecognized answer.");
             }
 
+            Connection connection = DatabaseUtilities.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
+            preparedStatement.execute();
         }
 
 
