@@ -6,7 +6,6 @@ public class Receipt {
     private int ResidentID;
     private float ReceiptAmount;
     private StringBuilder ReceiptTime;
-    private int isExpense;
 
 
     public Receipt(int receiptID, String receiptDescription, int residentID, float receiptAmount, StringBuilder receiptTime) {
@@ -72,13 +71,7 @@ public class Receipt {
         ReceiptTime = receiptTime;
     }
 
-    public int getIsExpense() {
-        return isExpense;
-    }
 
-    public void setIsExpense(int isExpense) {
-        this.isExpense = isExpense;
-    }
 
     public Object getByName(String attributeName) {
         return switch (attributeName) {
@@ -94,6 +87,6 @@ public class Receipt {
 
     @Override
     public String toString() {
-        return ReceiptID+", "+ReceiptDescription+ ", " +ResidentID+", "+ ReceiptAmount+", "+ ReceiptTime+ ", " + isExpense;
+        return ReceiptID+", "+ReceiptDescription+ ", " +ResidentID+", "+ ReceiptAmount+", "+ ReceiptTime;
     }
 }
