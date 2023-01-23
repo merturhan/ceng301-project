@@ -2,7 +2,7 @@
     ***Status***
     Hilal = " "
     Umut = "Person cart curt"
-    Mert = " Decision Bitiyor "
+    Mert = "  "
 
 !! Receipt in timestamp i date değiştirilmeli
 !! PersonModel.java 119. satırı yorumladım, genel proje çalışsın diye !!
@@ -15,7 +15,7 @@
 
 * There are 2 electricity subscriptions: one for elevator, one for corridors, garage, and other areas.
 
-* CASE SOLVED M+++ (sql de displayde görünüyor java da displayde null görünüyor!!)
+* CASE SOLVED M+++ 
 
 * All the expenses must be stored in the database.
 
