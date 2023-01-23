@@ -60,7 +60,7 @@ public class PersonModel implements ModelInterface {
                 sql.append(")");
                 flag = person.getPersonStatus();
                 aptID = person.getApartmentID();
-                System.out.println("apt id = " + aptID);
+                //System.out.println("apt id = " + aptID);
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
