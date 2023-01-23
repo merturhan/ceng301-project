@@ -153,14 +153,14 @@ public class PersonModel implements ModelInterface {
 
                 sql2.append("INSERT INTO Controller ");
                 sql2.append("(personID,residentID,controllerName) ");
-                sql2.append("SELECT TOP 1 r.personID, ");
+                sql2.append("select distinct r.personID, ");
                 sql2.append("r.residentID, ");
                 sql2.append("r.residentName ");
                 //sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
-                sql2.append("FROM Resident r ");
-                sql2.append("WHERE NOT EXISTS(SELECT personID ");
-                sql2.append("FROM Controller a2 ");
-                sql2.append("WHERE a2.personID = r.personID) ");
+                sql2.append("from Resident r,Person p ");
+                sql2.append("where not exists(select personID ");
+                sql2.append("from Controller c ");
+                sql2.append("where c.personID = r.personID) ");
 
 
 
