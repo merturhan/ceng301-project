@@ -45,7 +45,22 @@ class MainMenuView implements ViewInterface {
 
 				}
 
-				case 2 -> operationName = "select.gui";
+				case 2 -> {
+					System.out.println("""
+							---------- Report Menu ----------
+							0. Exit
+							1. Expenses in period
+							2. Moved Residents
+							3. Unpaid Dues
+							4. Average expenses in period
+							5. Subscriptions in apartment
+								""");
+
+					choice = getInteger("Enter your choice : ", false);
+					if (choice > 6 || choice < 1) return new ViewData(null, null);
+					function = reportMenu(choice);
+					executeReport(function);
+				}
 				default -> {
 					return new ViewData(null, null);
 				}

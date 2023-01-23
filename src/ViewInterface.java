@@ -1,3 +1,5 @@
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.*;
 import java.util.*;
 
@@ -6,7 +8,6 @@ interface ViewInterface {
 
 	public default String optionMenu(Integer choice)
 	{
-		StringBuilder stringBuilder = new StringBuilder();
 		String tableName = null;
 		switch (choice) {
 			case 1 -> tableName = "Person";
@@ -29,6 +30,28 @@ interface ViewInterface {
 		System.out.println("6. Return to Table Menu ");
 		System.out.println("7. Return to Main Menu ");
 		return tableName;
+	}
+
+	public default String reportMenu(Integer choice)
+	{
+		String funcName = null;
+		switch (choice) {
+			case 1 -> funcName = "Expenses in period";
+			case 2 -> funcName = "Moved Residents";
+			case 3 -> funcName = "Unpaid Dues";
+			case 4 -> funcName = "Average expenses in period";
+			case 5 -> funcName = "Subscriptions in apartment";
+		}
+		return funcName;
+	}
+
+	public default void executeReport(String function) throws SQLException {
+		Connection connection = DatabaseUtilities.getConnection();
+		StringBuilder stringBuilder = new StringBuilder();
+		if (function.equals("Expenses in Period"))
+		{
+			stringBuilder.append("");
+		}
 	}
 	public default Float getFloat(String prompt, boolean allowNulls) throws ParseException{
 		Float inputValue;

@@ -89,6 +89,7 @@ public class PersonModel implements ModelInterface {
             }
             else if (choice.equals("n"))
             {
+                // manager is not resident
                 sql2.append("INSERT INTO Manager ");
                 sql2.append("(personID,apartmentID,managerName) ");
                 sql2.append("SELECT t1.personID, ");
@@ -123,12 +124,10 @@ public class PersonModel implements ModelInterface {
                 sql2.append("FROM AssistantManager a2 ");
                 sql2.append("WHERE a2.personID = r.personID) ");
 
-
-
             }
             else if (choice.equals("n"))
             {
-                // manager is not resident
+                // a manager is not resident
                 sql2.append("INSERT INTO AssistantManager ");
                 sql2.append("(personID,managerID,assistantManagerName) ");
                 sql2.append("SELECT TOP 1 p.personID, ");
@@ -167,7 +166,7 @@ public class PersonModel implements ModelInterface {
             }
             else if (choice.equals("n"))
             {
-                // manager is not resident
+                // controller is not resident
                 sql2.append("INSERT INTO Controller ");
                 sql2.append("(personID,controllerName) ");
                 sql2.append("SELECT t1.personID, ");
