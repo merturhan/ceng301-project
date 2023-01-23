@@ -16,6 +16,10 @@ public class ModelViewControllerConsole {
 		router.put("Resident", new Controller(new ResidentView(), new ResidentModel()));
 		router.put("Apartment", new Controller(new ApartmentView(),new ApartmentModel()));
 		router.put("Decisions", new Controller(new DecisionsView(), new DecisionsModel()));
+		router.put("Receipt", new Controller(new ReceiptView(), new ReceiptModel()));
+		router.put("Expense", new Controller(new ExpenseView(), new ExpenseModel()));
+
+
 
 		ViewData viewData = new ViewData("MainMenu", "");		
 		do {
