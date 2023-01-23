@@ -131,7 +131,7 @@ interface ViewInterface {
 
 	public default StringBuilder getDate(String prompt, boolean allowNulls) throws ParseException {
 		StringBuilder inputValue = new StringBuilder();
-		inputValue.append("'");
+		inputValue.append("CAST((' ");
 		do {
 			System.out.print(prompt);
 			String input = scanner.nextLine();
@@ -144,7 +144,7 @@ interface ViewInterface {
 			else {
 				try {
 					inputValue.append(input);
-					inputValue.append("'");
+					inputValue.append(" ') AS DATE)");
 				}
 				catch(Exception e) {
 					inputValue = null;
