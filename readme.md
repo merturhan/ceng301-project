@@ -37,4 +37,4 @@
 
 * Once a resident paid its monthly due then you should give a due receipt to the resident.
 
-* A resident can move to other flat. For example a person can live in flat 9 for 3 years then this person can move to another flat in the same apartment (for example flat 2). This person can be also apartment manager. So roles must be not bind to flat, they must be bind to a person. Historical data must be preserved intact. If I want to see a certain time in apartment management (expenses, dues, roles) I should able to get it correctly.
+*(SOLVED M+++) A resident can move to other flat. For example a person can live in flat 9 for 3 years then this person can move to another flat in the same apartment (for example flat 2). This person can be also apartment manager. So roles must be not bind to flat, they must be bind to a person. Historical data must be preserved intact. If I want to see a certain time in apartment management (expenses, dues, roles) I should able to get it correctly.
