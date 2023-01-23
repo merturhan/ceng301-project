@@ -222,13 +222,13 @@ public class PersonModel implements ModelInterface {
         // if manager is resident
         sql2.append("INSERT INTO Manager ");
         sql2.append("(personID,apartmentID,residentID,managerName) ");
-        sql2.append("SELECT Top 1 r.personID ");
+        sql2.append("SELECT DISTINCT r.personID ");
         sql2.append(",r.apartmentID ");
         sql2.append(",r.residentID ");
         sql2.append(",r.residentName ");
-        sql2.append("FROM Resident r ");
+        sql2.append("FROM Resident r, Person p ");
         sql2.append("WHERE NOT EXISTS(SELECT residentID FROM Manager m ");
-        sql2.append("where m.residentID = r.residentID) ");
+        sql2.append("where m.residentID = r.residentID) and p.personStatus = 1 ");
     }
 
 
