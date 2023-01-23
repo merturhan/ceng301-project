@@ -56,7 +56,7 @@ public class ReceiptView implements ViewInterface{
         String ReceiptDescription = getString("ReceiptDescription : ", true);
         Integer ResidentID = getInteger("ResidentID : ", true);
         Float ReceiptAmount = getFloat("ReceiptAmount : ", true);
-        Date  ReceiptTime = getDate("ReceiptTime : ", true);
+        StringBuilder  ReceiptTime = getDate("ReceiptTime : ", true);
         Integer isExpense = getInteger("isExpense : ", true);
 
 
@@ -88,7 +88,7 @@ public class ReceiptView implements ViewInterface{
         Integer ResidentID,isExpense;
         String ReceiptDescription;
         Float ReceiptAmount;
-        Date ReceiptTime;
+        StringBuilder ReceiptTime;
         do
         {
             System.out.println("Fields to insert:");
@@ -115,7 +115,7 @@ public class ReceiptView implements ViewInterface{
         String ReceiptDescription = getString("ReceiptDescription : ", true);
         Integer ResidentID = getInteger("ResidentID : ", true);
         Float ReceiptAmount = getFloat("ReceiptAmount : ", true);
-        Date  ReceiptTime = getDate("ReceiptTime : ", true);
+        StringBuilder  ReceiptTime = getDate("ReceiptTime : ", true);
         Integer isExpense = getInteger("isExpense : ", true);
         System.out.println();
 

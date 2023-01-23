@@ -75,7 +75,7 @@ public class DecisionsView implements ViewInterface {
         String DecisionDescription = getString("Decision Description : ", true);
         Integer VoteYes = getInteger("Vote YES : ", true);
         Integer VoteNo = getInteger("Vote NO : ", true);
-        Date DecisionDate = getDate("Decision Date : ", true);
+        StringBuilder DecisionDate = getDate("Decision Date : ", true);
         String isAccepted = getString("is Accepted : ", true);
 
 
@@ -105,7 +105,7 @@ public class DecisionsView implements ViewInterface {
 
         Integer DecisionID, ApartmentID, VoteYes, VoteNo;
         String DecisionDescription,  isAccepted;
-        Date DecisionDate;
+        StringBuilder DecisionDate;
         do
         {
             System.out.println("Fields to insert:");
@@ -140,7 +140,7 @@ public class DecisionsView implements ViewInterface {
         String DecisionDescription = getString("Decision Description : ", true);
         Integer VoteYes = getInteger("Vote NO : ", true);
         Integer VoteNo = getInteger("Vote YES : ",true);
-        Date DecisionDate = getDate("Decision Date (YYYY-MM-DD) : ",true);
+        StringBuilder DecisionDate = getDate("Decision Date (YYYY-MM-DD) : ",true);
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();

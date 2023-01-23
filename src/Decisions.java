@@ -6,11 +6,11 @@ public class Decisions {
     private String DecisionDescription;
     private int VoteYes;
     private int VoteNo;
-    private Date DecisionDate;
+    private StringBuilder DecisionDate;
     private String isAccepted;
     Decisions(){}
 
-    public Decisions(int apartmentID, String decisionDescription, int voteYes, int voteNo, Date decisionDate, String isAccepted) {
+    public Decisions(int apartmentID, String decisionDescription, int voteYes, int voteNo, StringBuilder decisionDate, String isAccepted) {
         ApartmentID = apartmentID;
         DecisionDescription = decisionDescription;
         VoteYes = voteYes;
@@ -67,11 +67,11 @@ public class Decisions {
         this.isAccepted = isAccepted;
     }
 
-    public Date getDecisionDate() {
+    public StringBuilder getDecisionDate() {
         return DecisionDate;
     }
 
-    public void setDecisionDate(Date decisionDate) {
+    public void setDecisionDate(StringBuilder decisionDate) {
         DecisionDate = decisionDate;
     }
 
