@@ -5,13 +5,14 @@ import java.util.*;
 interface ModelInterface {
 
 	abstract ResultSet select(Map<String, Object> whereParameters) throws Exception;
-	
+
 	abstract int insert(String fieldNames, List<Object> rows) throws Exception;
-		
+
 	abstract int update(Map<String,Object> updateParameters, Map<String,Object> whereParameters) throws Exception;
 
 	abstract int delete(Map<String,Object> whereParameters) throws Exception;
-	
+
+
 	default ModelData execute(ViewData viewData) throws Exception {
 		if (viewData.viewParameters == null) {
 			return new ModelData();
@@ -28,7 +29,6 @@ interface ModelInterface {
 			case "insert" -> {
 				String fieldNames = (String) (viewData.viewParameters.get("fieldNames"));
 				List<Object> rows = (List<Object>) (viewData.viewParameters.get("rows"));
-
 				int recordCount = insert(fieldNames, rows);
 
 				return new ModelData(viewData.functionName, recordCount);
@@ -49,8 +49,8 @@ interface ModelInterface {
 				return new ModelData(viewData.functionName, recordCount);
 			}
 		}
-		
+
 		return new ModelData();
 	}
-	
+
 }
