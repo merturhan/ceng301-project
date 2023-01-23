@@ -44,6 +44,7 @@ public class PersonModel implements ModelInterface {
         //for(String s:fieldList) System.out.println(s);
         int rowCount = 0;
         int flag = 0;
+        int aptID = 0;
         for (int i=0; i<rows.size(); i++) {
             if (rows.get(i) instanceof Person person) {
                 rowCount++;
@@ -58,7 +59,8 @@ public class PersonModel implements ModelInterface {
                 }
                 sql.append(")");
                 flag = person.getPersonStatus();
-
+                aptID = person.getApartmentID();
+                //System.out.println("apt id = " + aptID);
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
@@ -147,13 +149,12 @@ public class PersonModel implements ModelInterface {
         }
 
         Connection connection = DatabaseUtilities.getConnection();
+        int residentCounter = getResidentCounter(aptID, connection);
+        sql2.append("\nUPDATE Apartment\n" +
+                "SET residentCounter = " + residentCounter + "\n" +
+                "WHERE apartmentID = " + aptID + " ");
         PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
         preparedStatement.execute();
-
-        System.out.println(sql2);
-
-
-
 
         return rowCount;
     }
@@ -242,6 +243,32 @@ public class PersonModel implements ModelInterface {
         preparedStatement.close();
 
         return rowCount;
+    }
+
+    public static int getResidentCounter(int ApartmentID, Connection conn) throws SQLException {
+
+        int residentCount = 0;
+
+
+        String query = "SELECT COUNT(*) AS residentCount\nFROM Person\nWHERE apartmentID = " + ApartmentID;
+        try {
+
+            //conn = DatabaseUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery(query);
+            while ( rs.next() ) {
+                residentCount = rs.getInt("residentCount");
+                System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+
+        return residentCount;
     }
 
     @Override
