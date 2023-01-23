@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.List;
 import java.util.Map;
 public class DecisionsModel implements ModelInterface{
@@ -32,12 +30,17 @@ public class DecisionsModel implements ModelInterface{
         StringBuilder sql = new StringBuilder();
         sql.append(" INSERT INTO dbo.Decisions (").append(fieldNames).append(") ");
         sql.append(" VALUES ");
+        StringBuilder sql2 = new StringBuilder();
 
         String[] fieldList = fieldNames.split(",");
 
         for(String s:fieldList) System.out.println(s);
 
         int rowCount = 0;
+        String DecisionDescription = "";
+        String isAccepetd = "";
+        int aptID = 0;
+        int residentCount = 0;
         for (int i=0; i<rows.size(); i++) {
             if (rows.get(i) instanceof Decisions decisions) {
                 rowCount++;
@@ -51,21 +54,36 @@ public class DecisionsModel implements ModelInterface{
                     }
                 }
                 sql.append(")");
-
+                DecisionDescription = decisions.getDecisionDescription();
+                isAccepetd = decisions.getIsAccepted();
+                aptID = decisions.getApartmentID();
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
             }
         }
         //System.out.println(sql.toString());
+        //System.out.println("decision : " + DecisionDescription);
+        //System.out.println("apt id = " + aptID);
 
         // execute constructed SQL statement
         if (rowCount > 0) {
             Connection connection = DatabaseUtilities.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
             rowCount = preparedStatement.executeUpdate();
+            residentCount = getResidentCounter(aptID, connection);
+            if (DecisionDescription.equals("aidat") && residentCount >= 9 && isAccepetd.equals("YES")){
+                sql2.append("UPDATE Resident\n" +
+                        "SET paidFlag = 0\n" +
+                        "WHERE apartmentID = " +  aptID + " and Resident.residentID IN (Select m.residentID from Manager m Where m.apartmentID = " + aptID + "and Not Exists(SELECT am.residentID from AssistantManager am WHERE m.residentID = am.residentID))\n");
+            }
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sql2.toString());
+            preparedStatement1.executeUpdate();
             preparedStatement.close();
         }
+
+        Connection connection = DatabaseUtilities.getConnection();
+
 
         return rowCount;
     }
@@ -116,5 +134,32 @@ public class DecisionsModel implements ModelInterface{
         preparedStatement.close();
 
         return rowCount;
+    }
+
+    public static int getResidentCounter(int ApartmentID, Connection conn) throws SQLException {
+
+        int residentCount = 0;
+
+
+        String query = "SELECT COUNT(*) AS residentCount\nFROM Person\nWHERE apartmentID = " + ApartmentID;
+        try {
+
+            //conn = DatabaseUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery(query);
+            while ( rs.next() ) {
+                residentCount = rs.getInt("residentCount");
+                System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+
+
+        return residentCount;
     }
 }

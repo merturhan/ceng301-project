@@ -44,6 +44,7 @@ public class PersonModel implements ModelInterface {
         //for(String s:fieldList) System.out.println(s);
         int rowCount = 0;
         int flag = 0;
+        int aptID = 0;
         for (int i=0; i<rows.size(); i++) {
             if (rows.get(i) instanceof Person person) {
                 rowCount++;
@@ -58,7 +59,8 @@ public class PersonModel implements ModelInterface {
                 }
                 sql.append(")");
                 flag = person.getPersonStatus();
-
+                aptID = person.getApartmentID();
+                //System.out.println("apt id = " + aptID);
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
@@ -80,40 +82,9 @@ public class PersonModel implements ModelInterface {
             if (choice.equals("y"))
             {
                 //resident
-                System.out.println("Enter phone number: ");
-                String residentPhoneNum = scan.nextLine();
-                System.out.println("Enter flat ID: ");
-                int flatID = scan.nextInt();
-                System.out.println("Is monthly due paid: ");
-                int paidFlag = scan.nextInt();
+                insertResident(sql2);
 
-                sql2.append("INSERT INTO Resident ");
-                sql2.append("(personID,apartmentID,residentName,residentPhoneNum,flatId,paidFlag) ");
-                sql2.append("SELECT t1.personID, ");
-                sql2.append("t1.apartmentID, ");
-                sql2.append("t1.personName, ");
-                sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
-                sql2.append("FROM Person t1 ");
-                sql2.append("WHERE NOT EXISTS(SELECT personID ");
-                sql2.append("FROM Resident t2 ");
-                sql2.append("WHERE t2.personID = t1.personID) ");
-
-                sql2.append("   ");
-
-                sql2.append("INSERT INTO Manager ");
-                sql2.append("(personID,apartmentID,residentID,managerName) ");
-                sql2.append("SELECT t1.personID, ");
-                sql2.append("t1.apartmentID, ");
-                sql2.append("r.residentID, ");
-                sql2.append("t1.personName ");
-                sql2.append("FROM Person t1,Resident r ");
-                sql2.append("WHERE NOT EXISTS(SELECT personID ");
-                sql2.append("FROM Resident t2 ");
-                sql2.append("WHERE t2.personID = t1.personID) ");
-
-
-
-
+                insertManager(sql2);
 
             }
             else if (choice.equals("n"))
@@ -138,20 +109,15 @@ public class PersonModel implements ModelInterface {
             if (choice.equals("y"))
             {
                 //resident
-                System.out.println("Enter phone number: ");
-                String residentPhoneNum = scan.nextLine();
-                System.out.println("Enter flat ID: ");
-                int flatID = scan.nextInt();
-                System.out.println("Is monthly due paid: ");
-                int paidFlag = scan.nextInt();
+                insertResident(sql2);
 
                 sql2.append("INSERT INTO AssistantManager ");
-                sql2.append("(personID,apartmentID,residentName,residentPhoneNum,flatId,paidFlag) ");
+                sql2.append("(personID,managerID,residentID,assistantManagerName) ");
                 sql2.append("SELECT t1.personID, ");
                 sql2.append("t1.apartmentID, ");
                 sql2.append("t1.personName, ");
-                sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
-                sql2.append("FROM Person t1 ");
+                //sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
+                sql2.append("FROM Person t1,Manager m ");
                 sql2.append("WHERE NOT EXISTS(SELECT personID ");
                 sql2.append("FROM Resident t2 ");
                 sql2.append("WHERE t2.personID = t1.personID) ");
@@ -160,6 +126,7 @@ public class PersonModel implements ModelInterface {
             }
             else if (choice.equals("n"))
             {
+                // manager is not resident
                 sql2.append("INSERT INTO Manager ");
                 sql2.append("(personID,apartmentID,managerName) ");
                 sql2.append("SELECT t1.personID, ");
@@ -178,123 +145,57 @@ public class PersonModel implements ModelInterface {
         }
         else if(flag == 4)
         {
-            System.out.println("Enter phone number: ");
-            String residentPhoneNum = scan.nextLine();
-            System.out.println("Enter flat ID: ");
-            int flatID = scan.nextInt();
-            System.out.println("Is monthly due paid: ");
-            int paidFlag = scan.nextInt();
-
-            sql2.append("INSERT INTO Resident ");
-            sql2.append("(personID,apartmentID,residentName,residentPhoneNum,flatId,paidFlag) ");
-            sql2.append("SELECT t1.personID, ");
-            sql2.append("t1.apartmentID, ");
-            sql2.append("t1.personName, ");
-            sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
-            sql2.append("FROM Person t1 ");
-            sql2.append("WHERE NOT EXISTS(SELECT personID ");
-            sql2.append("FROM Resident t2 ");
-            sql2.append("WHERE t2.personID = t1.personID) ");
+            insertResident(sql2);
         }
 
         Connection connection = DatabaseUtilities.getConnection();
+        int residentCounter = getResidentCounter(aptID, connection);
+        sql2.append("\nUPDATE Apartment\n" +
+                "SET residentCounter = " + residentCounter + "\n" +
+                "WHERE apartmentID = " + aptID + " ");
         PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
         preparedStatement.execute();
-
-        System.out.println(sql2);
-
-
-
 
         return rowCount;
     }
 
-    public void insertIntoManager(Connection connection)
+    public void insertResident(StringBuilder sql2)
     {
-        StringBuilder insertManager = new StringBuilder();
-        insertManager.append("insert into Manager values(");
-        String SELECT_LAST_PERSON = "SELECT TOP 1 * FROM Person ORDER BY personID DESC";
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SELECT_LAST_PERSON);
-            int personID = 0;
-            String managerName = null;
-            int apartmentID = 0;
-            while (resultSet.next()) {
-                personID = resultSet.getInt("personID");
-                apartmentID = resultSet.getInt("apartmentID");
-                managerName = resultSet.getString("personName");
-            }
+        System.out.println("Enter phone number: ");
+        String residentPhoneNum = scan.nextLine();
+        System.out.println("Enter flat ID: ");
+        int flatID = scan.nextInt();
+        System.out.println("Is monthly due paid: ");
+        int paidFlag = scan.nextInt();
 
-            insertManager.append(personID).append(",").append(apartmentID).append(",");
+        sql2.append("INSERT INTO Resident ");
+        sql2.append("(personID,apartmentID,residentName,residentPhoneNum,flatId,paidFlag) ");
+        sql2.append("SELECT t1.personID, ");
+        sql2.append("t1.apartmentID, ");
+        sql2.append("t1.personName, ");
+        sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
+        sql2.append("FROM Person t1 ");
+        sql2.append("WHERE NOT EXISTS(SELECT personID ");
+        sql2.append("FROM Resident t2 ");
+        sql2.append("WHERE t2.personID = t1.personID) ");
 
-            System.out.println("Is resident? (y,n)");
-            String choice = scan.nextLine();
-            if (choice.equals("y"))
-            {
-                //resident
-                insertIntoResident(connection);
-                String SELECT_LAST_RESIDENT = "SELECT TOP 1 * FROM Resident ORDER BY residentID DESC";
-                ResultSet resultSet1 = statement.executeQuery(SELECT_LAST_RESIDENT);
-                int residentID = 0;
-                while (resultSet1.next()) {
-                     residentID = resultSet1.getInt("residentID");
-                }
-                insertManager.append(residentID).append(",");
-            }
-            else insertManager.append(0);
-            insertManager.append(managerName).append(")");
-            System.out.println(insertManager);
-            PreparedStatement psInsertManager = connection.prepareStatement(insertManager.toString());
-            psInsertManager.execute();
-
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        sql2.append("\n");
     }
 
-    public void insertIntoResident(Connection connection)
+    public void insertManager(StringBuilder sql2)
     {
-        StringBuilder insertResident = new StringBuilder();
-        insertResident.append("insert into Resident values(");
-        try {
-
-            Statement statement = connection.createStatement();
-            String SELECT_LAST_PERSON = "SELECT TOP 1 * FROM Person ORDER BY personID DESC";
-            ResultSet resultSet = statement.executeQuery(SELECT_LAST_PERSON);
-            int personID = 0,apartmentID = 0;
-            String residentName = null;
-
-            while (resultSet.next()) {
-                personID = resultSet.getInt("personID");
-                apartmentID = resultSet.getInt("apartmentID");
-                residentName = resultSet.getString("personName");
-            }
-
-            insertResident.append(personID).append(",").append(apartmentID).append(",").append("'").append(residentName).append("'").append(",");
-            System.out.println("Enter resident phone: ");
-            String residentPhone = scan.nextLine();
-            insertResident.append(residentPhone).append(",");
-            System.out.println("Is due paid: (1 or 0)");
-            int paidFlag = scan.nextInt();
-            insertResident.append(paidFlag).append(",");
-            System.out.println("Enter flat ID: ");
-            int flatID = scan.nextInt();
-            insertResident.append(flatID).append(",");
-            System.out.println("Enter entrance date to the flat : ");
-            Date date = Date.valueOf(scan.nextLine());
-            insertResident.append(date).append(")");
-
-            System.out.println(insertResident);
-            PreparedStatement psInsertResident = connection.prepareStatement(insertResident.toString());
-            psInsertResident.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        // if manager is resident
+        sql2.append("INSERT INTO Manager ");
+        sql2.append("(personID,apartmentID,residentID,managerName) ");
+        sql2.append("SELECT DISTINCT r.personID ");
+        sql2.append(",r.apartmentID ");
+        sql2.append(",r.residentID ");
+        sql2.append(",r.residentName ");
+        sql2.append("FROM Resident r ");
+        sql2.append("WHERE NOT EXISTS(SELECT residentID FROM Manager m ");
+        sql2.append("where m.residentID = r.residentID) ");
     }
+
 
     @Override
     public int update(Map<String, Object> updateParameters, Map<String, Object> whereParameters) throws Exception {
@@ -342,6 +243,32 @@ public class PersonModel implements ModelInterface {
         preparedStatement.close();
 
         return rowCount;
+    }
+
+    public static int getResidentCounter(int ApartmentID, Connection conn) throws SQLException {
+
+        int residentCount = 0;
+
+
+        String query = "SELECT COUNT(*) AS residentCount\nFROM Person\nWHERE apartmentID = " + ApartmentID;
+        try {
+
+            //conn = DatabaseUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery(query);
+            while ( rs.next() ) {
+                residentCount = rs.getInt("residentCount");
+                System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+
+        return residentCount;
     }
 
     @Override

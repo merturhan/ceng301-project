@@ -1,5 +1,5 @@
 import javax.swing.text.View;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
@@ -34,6 +34,7 @@ public class DecisionsView implements ViewInterface {
                 Integer VoteNo = resultSet.getInt("VoteNo");
                 Date DecisionDate = resultSet.getDate("DecisionDate");
                 String isAccepted = resultSet.getString("isAccepted");
+                String isFullOrMajority = resultSet.getString("isFullOrMajority");
 
                 // Display values
                 System.out.print(DecisionID + "\t");
@@ -42,7 +43,8 @@ public class DecisionsView implements ViewInterface {
                 System.out.print(VoteYes + "\t");
                 System.out.print(VoteNo + "\t");
                 System.out.print(DecisionDate + "\t");
-                System.out.println(isAccepted + "\t");
+                System.out.print(isAccepted + "\t");
+                System.out.println(isFullOrMajority + "\t");
             }
             resultSet.close();
         }
@@ -77,6 +79,7 @@ public class DecisionsView implements ViewInterface {
         Integer VoteNo = getInteger("Vote NO : ", true);
         StringBuilder DecisionDate = getDate("Decision Date : ", true);
         String isAccepted = getString("is Accepted : ", true);
+        String isFullOrMajority = getString("is Full or Majority : ", true);
 
 
         Map<String, Object> whereParameters = new HashMap<>();
@@ -87,6 +90,7 @@ public class DecisionsView implements ViewInterface {
         if (VoteNo != null) whereParameters.put("VoteNo", VoteNo);
         if (DecisionDate != null) whereParameters.put("DecisionDate", DecisionDate);
         if (isAccepted != null) whereParameters.put("isAccepted", isAccepted);
+        if (isFullOrMajority != null) whereParameters.put("isFullOrMajority", isFullOrMajority);
         return whereParameters;
     }
 
@@ -99,15 +103,19 @@ public class DecisionsView implements ViewInterface {
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate, isAccepted");
+        parameters.put("fieldNames", "ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate, isAccepted, isFullOrMajority");
 
         List<Object> rows = new ArrayList<>();
 
         Integer DecisionID, ApartmentID, VoteYes, VoteNo;
-        String DecisionDescription,  isAccepted;
+        String DecisionDescription,  isAccepted, isFullOrMajority;
         StringBuilder DecisionDate;
+
+        int residentCounter = 0;
+
         do
         {
+            int temp = 0;
             System.out.println("Fields to insert:");
             //DecisionID = getInteger("Apartment Name : ", true);
             ApartmentID = getInteger("Apartment ID : ", true);
@@ -115,19 +123,33 @@ public class DecisionsView implements ViewInterface {
             VoteYes = getInteger("Vote YES : ", true);
             VoteNo = getInteger("Vote NO : ", true);
             DecisionDate = getDate("Decision Date (YYYY-MM-DD) : ", true);
+            isFullOrMajority = getString("Is Decision Full or Majority (write Full or Majority): ", true);
             System.out.println();
 
-            if (ApartmentID != null && DecisionDescription != null && VoteYes != null && VoteNo != null && DecisionDate != null) {
-                if(VoteYes > VoteNo){
-                    rows.add(new Decisions(ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate,"YES"));
+            if (ApartmentID != null && DecisionDescription != null && VoteYes != null && VoteNo != null && DecisionDate != null && isFullOrMajority != null) {
+
+
+                if( isFullOrMajority.equals("Full")){
+                    residentCounter = getResidentCounter(ApartmentID);
+                    if(residentCounter == (VoteYes + VoteNo)){
+                        rows.add(new Decisions(ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate,"YES", "Full"));
+                    }
+                    else{
+                        rows.add(new Decisions(ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate,"NO", "Full"));
+                    }
+                }else{
+                    if(VoteYes > VoteNo){
+                        rows.add(new Decisions(ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate,"YES", "Majority"));
+                    }
+                    else{
+                        rows.add(new Decisions(ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate,"NO", "Majority"));
+                    }
                 }
-                else{
-                    rows.add(new Decisions(ApartmentID, DecisionDescription, VoteYes, VoteNo, DecisionDate,"NO"));
-                }
+
 
             }
         }
-        while (ApartmentID != null && DecisionDescription != null && VoteYes != null && VoteNo != null && DecisionDate != null);
+        while (ApartmentID != null && DecisionDescription != null && VoteYes != null && VoteNo != null && DecisionDate != null && isFullOrMajority != null);
 
         parameters.put("rows", rows);
 
@@ -141,6 +163,9 @@ public class DecisionsView implements ViewInterface {
         Integer VoteYes = getInteger("Vote NO : ", true);
         Integer VoteNo = getInteger("Vote YES : ",true);
         StringBuilder DecisionDate = getDate("Decision Date (YYYY-MM-DD) : ",true);
+        String isAccepted = getString("Enter YES or NO", false);
+        String isFullOrMajority = getString("Is Decision Full or Majority (write Full or Majority): ", true);
+
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
@@ -149,6 +174,8 @@ public class DecisionsView implements ViewInterface {
         if (VoteYes != null) updateParameters.put("VoteYes", VoteYes);
         if (VoteNo != null) updateParameters.put("VoteNo", VoteNo);
         if (DecisionDate != null) updateParameters.put("DecisionDate", DecisionDate);
+        if (isAccepted != null ) updateParameters.put("isAccepted", isAccepted);
+        if (isFullOrMajority != null) updateParameters.put("isFullOrMajority", isFullOrMajority);
 
 
         Map<String, Object> parameters = new HashMap<>();
@@ -163,6 +190,41 @@ public class DecisionsView implements ViewInterface {
         parameters.put("whereParameters", getWhereParameters());
 
         return new ViewData("Decisions", "delete", parameters);
+    }
+
+    public static int getResidentCounter(int ApartmentID) throws SQLException {
+
+        int residentCount = 0;
+
+        String host = "DESKTOP-M8BB118\\SQLEXPRESS:49670";
+        String databaseName = "BuildingSiteManagement";
+
+        String conUrl =   "jdbc:sqlserver://" + host + ";"
+                + "DatabaseName=" + databaseName + ";"
+                + ";encrypt=true;trustServerCertificate=true;integratedSecurity=true;";
+
+
+        String query = "SELECT COUNT(*) AS residentCount\nFROM Person\nWHERE apartmentID = " + ApartmentID;
+        try {
+
+            Connection conn = DriverManager.getConnection(conUrl);
+            Statement stmt = conn.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery(query);
+            while ( rs.next() ) {
+                residentCount = rs.getInt("residentCount");
+                System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
+            }
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+
+        return residentCount;
+
+
     }
 
     @Override

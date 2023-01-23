@@ -2,17 +2,20 @@
     ***Status***
     Hilal = " "
     Umut = "Person cart curt"
-    Mert = " Decisions "
+    Mert = " Decision Bitiyor "
+
+!! Receipt in timestamp i date değiştirilmeli
+!! PersonModel.java 119. satırı yorumladım, genel proje çalışsın diye !!
 
 * In this system there are people. These people can be residents of the apartment, apartment manager (resident or an external person - then you should pay for this person), apartment manager assistant, controller (who looks at the expenses and check, kind of inspector), apartment serviceman (apartman görevlisi), and people you get service as apartment (repairmen etc). 
 
-* In some apartments (by law if there are more than 9 residents), apartment manager do not pay dues (aidat). This should be decided by the apartment residents via majority voting.
+* CASE SOLVED M+++ (apartmanda bulunan insan sayısı >= 9 ise ve DecisionsDesc = aidat ise  manager paid flag = 0 )
 
 * Apartment manager has some legal authority such as a) he can set an electricity subscription, b) he can set as an water subscription, c) he can get other subscriptions. Generally apartment should pay the bills for these subscriptions. It can be monthly but sometimes period can change as well.
 
 * There are 2 electricity subscriptions: one for elevator, one for corridors, garage, and other areas.
 
-* In apartment meetings there will be decisions made by the apartment (either majority voting, or full voting). These meeting, decisions on these meetings, votes, and if it is approved or not should be stored. If there are 9 flat then 5 or more is majority, 9 is full voting. Some decisions requires full voting. This is decided by the law so user of the system should enter this manually.
+* CASE SOLVED M+++ (sql de displayde görünüyor java da displayde null görünüyor!!)
 
 * All the expenses must be stored in the database.
 
