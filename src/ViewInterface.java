@@ -1,6 +1,6 @@
 import java.text.*;
-import java.util.Scanner;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 interface ViewInterface {
 	public static final Scanner scanner = new Scanner(System.in); 
@@ -12,7 +12,7 @@ interface ViewInterface {
 		switch (choice) {
 			case 1 -> tableName = "Person";
 			case 2 -> tableName = "Manager";
-			case 3 -> tableName = "AsistantManager";
+			case 3 -> tableName = "AssistantManager";
 			case 4 -> tableName = "Controller";
 			case 5 -> tableName = "Resident";
 			case 6 -> tableName = "Apartment";
@@ -132,20 +132,18 @@ interface ViewInterface {
 	public default Date getDate(String prompt, boolean allowNulls) throws ParseException {
 		Date inputValue;
 		do {
-			System.out.print(prompt);		
+			System.out.print(prompt);
 			String input = scanner.nextLine();
 			if (allowNulls && input.trim().equals("")) {
 				return null;
-			}			
+			}
 			if (!allowNulls && input.trim().equals("")) {
 				inputValue = null;
-			}			
+			}
 			else {
 				try {
-				    //DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				    //inputValue = formatter.parse(input);
-					inputValue = Date.valueOf(input);
-					System.out.println("date : " + inputValue);
+					DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					inputValue = formatter.parse(input);
 				}
 				catch(Exception e) {
 					inputValue = null;
@@ -153,7 +151,7 @@ interface ViewInterface {
 			}
 		}
 		while (inputValue == null);
-		System.out.println(inputValue.toString());
+
 		return inputValue;
 	}
 		
