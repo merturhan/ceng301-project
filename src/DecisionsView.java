@@ -196,12 +196,18 @@ public class DecisionsView implements ViewInterface {
 
         int residentCount = 0;
 
+        String host = "DESKTOP-M8BB118\\SQLEXPRESS:49670";
+        String databaseName = "BuildingSiteManagement";
+
+        String conUrl =   "jdbc:sqlserver://" + host + ";"
+                + "DatabaseName=" + databaseName + ";"
+                + ";encrypt=true;trustServerCertificate=true;integratedSecurity=true;";
 
 
         String query = "SELECT COUNT(*) AS residentCount\nFROM Person\nWHERE apartmentID = " + ApartmentID;
         try {
 
-            Connection conn = DatabaseUtilities.getConnection();
+            Connection conn = DriverManager.getConnection(conUrl);
             Statement stmt = conn.createStatement();
             ResultSet rs;
 
@@ -210,6 +216,7 @@ public class DecisionsView implements ViewInterface {
                 residentCount = rs.getInt("residentCount");
                 System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
             }
+            conn.close();
         } catch (Exception e) {
             System.err.println("Got an exception! ");
             System.err.println(e.getMessage());
