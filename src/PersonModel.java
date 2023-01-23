@@ -113,24 +113,64 @@ public class PersonModel implements ModelInterface {
 
                 sql2.append("INSERT INTO AssistantManager ");
                 sql2.append("(personID,managerID,residentID,assistantManagerName) ");
-                sql2.append("SELECT t1.personID, ");
-                sql2.append("t1.apartmentID, ");
-                sql2.append("t1.personName, ");
+                sql2.append("SELECT TOP 1 r.personID, ");
+                sql2.append("m.managerID, ");
+                sql2.append("r.residentID, ");
+                sql2.append("r.residentName ");
                 //sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
-                sql2.append("FROM Person t1,Manager m ");
+                sql2.append("FROM Resident r,Manager m ");
                 sql2.append("WHERE NOT EXISTS(SELECT personID ");
-                sql2.append("FROM Resident t2 ");
-                sql2.append("WHERE t2.personID = t1.personID) ");
+                sql2.append("FROM AssistantManager a2 ");
+                sql2.append("WHERE a2.personID = r.personID) ");
+
 
 
             }
             else if (choice.equals("n"))
             {
                 // manager is not resident
-                sql2.append("INSERT INTO Manager ");
-                sql2.append("(personID,apartmentID,managerName) ");
+                sql2.append("INSERT INTO AssistantManager ");
+                sql2.append("(personID,managerID,assistantManagerName) ");
+                sql2.append("SELECT TOP 1 p.personID, ");
+                sql2.append("m.managerID, ");
+                sql2.append("p.personName ");
+                //sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
+                sql2.append("FROM Person p,Manager m ");
+                sql2.append("WHERE NOT EXISTS(SELECT personID ");
+                sql2.append("FROM AssistantManager a2 ");
+                sql2.append("WHERE a2.personID = p.personID) ");
+            }
+            else System.out.println("Unrecognized answer.");
+        }
+        else if(flag == 3)
+        {
+            System.out.println("Is resident? (y,n)");
+            String choice = scan.nextLine();
+            if (choice.equals("y"))
+            {
+                //resident
+                insertResident(sql2);
+
+                sql2.append("INSERT INTO Controller ");
+                sql2.append("(personID,residentID,controllerName) ");
+                sql2.append("SELECT TOP 1 r.personID, ");
+                sql2.append("r.residentID, ");
+                sql2.append("r.residentName ");
+                //sql2.append("'"+residentPhoneNum+"',"+flatID+","+paidFlag+" ");
+                sql2.append("FROM Resident r ");
+                sql2.append("WHERE NOT EXISTS(SELECT personID ");
+                sql2.append("FROM Controller a2 ");
+                sql2.append("WHERE a2.personID = r.personID) ");
+
+
+
+            }
+            else if (choice.equals("n"))
+            {
+                // manager is not resident
+                sql2.append("INSERT INTO Controller ");
+                sql2.append("(personID,controllerName) ");
                 sql2.append("SELECT t1.personID, ");
-                sql2.append("t1.apartmentID, ");
                 sql2.append("t1.personName ");
                 sql2.append("FROM Person t1 ");
                 sql2.append("WHERE NOT EXISTS(SELECT personID ");
@@ -138,10 +178,6 @@ public class PersonModel implements ModelInterface {
                 sql2.append("WHERE t2.personID = t1.personID) ");
             }
             else System.out.println("Unrecognized answer.");
-        }
-        else if(flag == 3)
-        {
-
         }
         else if(flag == 4)
         {
