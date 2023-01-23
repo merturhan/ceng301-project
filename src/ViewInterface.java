@@ -19,6 +19,7 @@ interface ViewInterface {
 			case 8 -> tableName = "Payment";
 			case 9 -> tableName = "Expense";
 			case 10 -> tableName = "Decisions";
+			case 11 -> tableName = "movedFlat";
 		}
 		System.out.println("1. Show all " + tableName);
 		System.out.println("2. Show "+ tableName);

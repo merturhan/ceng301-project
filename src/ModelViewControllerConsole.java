@@ -18,6 +18,7 @@ public class ModelViewControllerConsole {
 		router.put("Decisions", new Controller(new DecisionsView(), new DecisionsModel()));
 		router.put("Receipt", new Controller(new ReceiptView(), new ReceiptModel()));
 		router.put("Expense", new Controller(new ExpenseView(), new ExpenseModel()));
+		router.put("movedFlat", new Controller(new MovedFlatView(), new MovedFlatModel()));
 
 
 
