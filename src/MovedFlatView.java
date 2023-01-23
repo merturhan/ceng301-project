@@ -89,7 +89,7 @@ public class MovedFlatView implements  ViewInterface{
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "oldFlatID, newFlatID, ApartmentID, enteranceDate, leavingDate");
+        parameters.put("fieldNames", "oldFlatID, newFlatID, apartmentID, enteranceDate, leavingDate");
 
         List<Object> rows = new ArrayList<>();
 
@@ -120,17 +120,17 @@ public class MovedFlatView implements  ViewInterface{
         System.out.println("Fields to update:");
         Integer oldFlatID = getInteger("Old Flat ID : ", true);
         Integer newFlatID = getInteger("New Flat ID : ", true);
-        Integer ApartmentID = getInteger("Apartment ID : ", true);
+        Integer apartmentID = getInteger("Apartment ID : ", true);
         StringBuilder enteranceDate = getDate("Enterance Date : ", true);
         StringBuilder leavingDate = getDate("Leaving Date : ", true);
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
-        if (oldFlatID != null) updateParameters.put("apartmentName", oldFlatID);
-        if (newFlatID != null) updateParameters.put("street", newFlatID);
-        if (ApartmentID != null) updateParameters.put("city", ApartmentID);
-        if (enteranceDate != null) updateParameters.put("state", enteranceDate);
-        if (leavingDate != null) updateParameters.put("zip_code", leavingDate);
+        if (oldFlatID != null) updateParameters.put("oldFlatID", oldFlatID);
+        if (newFlatID != null) updateParameters.put("newFlatID", newFlatID);
+        if (apartmentID != null) updateParameters.put("apartmentID", apartmentID);
+        if (enteranceDate != null) updateParameters.put("enteranceDate", enteranceDate);
+        if (leavingDate != null) updateParameters.put("leavingDate", leavingDate);
 
 
         Map<String, Object> parameters = new HashMap<>();
@@ -149,6 +149,6 @@ public class MovedFlatView implements  ViewInterface{
 
     @Override
     public String toString() {
-        return "MovedFlatView{}";
+        return "MovedFlatView";
     }
 }
