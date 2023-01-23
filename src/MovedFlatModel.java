@@ -32,11 +32,18 @@ public class MovedFlatModel implements  ModelInterface{
         sql.append(" INSERT INTO dbo.movedFlat (").append(fieldNames).append(") ");
         sql.append(" VALUES ");
 
+        StringBuilder sql2 = new StringBuilder();
+
         String[] fieldList = fieldNames.split(",");
 
         for(String s:fieldList) System.out.println(s);
 
         int rowCount = 0;
+
+        int oldFlatID = 0;
+        int newFlatID = 0;
+        int apartmentID = 0;
+
         for (int i=0; i<rows.size(); i++) {
             if (rows.get(i) instanceof MovedFlat movedFlat) {
                 rowCount++;
@@ -51,6 +58,10 @@ public class MovedFlatModel implements  ModelInterface{
                 }
                 sql.append(")");
 
+                oldFlatID = movedFlat.getOldFlatID();
+                newFlatID = movedFlat.getNewFlatID();
+                apartmentID = movedFlat.getApartmentID();
+
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
@@ -63,6 +74,16 @@ public class MovedFlatModel implements  ModelInterface{
             Connection connection = DatabaseUtilities.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
             rowCount = preparedStatement.executeUpdate();
+
+            sql2.append("update  Resident\n" +
+                    "set flatId = "+ newFlatID + "\n" +
+                    "Where apartmentID = " + apartmentID +" and flatId = " + oldFlatID);
+
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sql2.toString());
+            preparedStatement1.executeUpdate();
+            preparedStatement.close();
+
+
             preparedStatement.close();
         }
 
