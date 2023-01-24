@@ -298,7 +298,6 @@ public class PersonModel implements ModelInterface {
             rs = stmt.executeQuery(query);
             while ( rs.next() ) {
                 residentCount = rs.getInt("residentCount");
-                System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
             }
 
         } catch (Exception e) {

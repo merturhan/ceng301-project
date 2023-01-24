@@ -47,7 +47,16 @@ public class Payment {
                 case "ReceiptId" -> ReceiptId;
                 default -> null;
             };
-        }
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "PaymentId=" + PaymentId +
+                ", ResidentId=" + ResidentId +
+                ", ReceiptId=" + ReceiptId +
+                '}';
+    }
+}
 
 

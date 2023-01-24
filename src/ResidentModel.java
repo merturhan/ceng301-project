@@ -50,16 +50,12 @@ public class ResidentModel implements ModelInterface{
                     }
                 }
                 sql.append(")");
-                aptID = resident.getApartmentID();
                 if (i < rows.size() - 1) {
                     sql.append(", ");
                 }
             }
         }
         //System.out.println(sql.toString());
-
-        //int residetCounter = getResidentCounter(aptID);
-        System.out.println(aptID);
 
 
         // execute constructed SQL statement
@@ -120,36 +116,5 @@ public class ResidentModel implements ModelInterface{
         return rowCount;
     }
 
-    public static int getResidentCounter(int ApartmentID) throws SQLException {
 
-        int residentCount = 0;
-
-        String host = "DESKTOP-M8BB118\\SQLEXPRESS:49670";
-        String databaseName = "BuildingSiteManagement";
-
-        String conUrl =   "jdbc:sqlserver://" + host + ";"
-                + "DatabaseName=" + databaseName + ";"
-                + ";encrypt=true;trustServerCertificate=true;integratedSecurity=true;";
-
-
-        String query = "SELECT COUNT(*) AS residentCount\nFROM Person\nWHERE apartmentID = " + ApartmentID;
-        try {
-
-            Connection conn = DriverManager.getConnection(conUrl);
-            Statement stmt = conn.createStatement();
-            ResultSet rs;
-
-            rs = stmt.executeQuery(query);
-            while ( rs.next() ) {
-                residentCount = rs.getInt("residentCount");
-                System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
-            }
-            conn.close();
-        } catch (Exception e) {
-            System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
-        }
-
-        return residentCount;
-    }
 }

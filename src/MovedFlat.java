@@ -76,4 +76,16 @@ public class MovedFlat {
             default -> null;
         };
     }
+
+    @Override
+    public String toString() {
+        return "MovedFlat{" +
+                "flatHistory=" + flatHistory +
+                ", oldFlatID=" + oldFlatID +
+                ", newFlatID=" + newFlatID +
+                ", apartmentID=" + apartmentID +
+                ", enteranceDate=" + enteranceDate +
+                ", leavingDate=" + leavingDate +
+                '}';
+    }
 }

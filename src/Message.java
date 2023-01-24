@@ -42,4 +42,15 @@ public class Message {
             default -> null;
         };
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "MessageID=" + MessageID +
+                ", ManagerID=" + ManagerID +
+                ", ResidentID=" + ResidentID +
+                ", Message='" + Message + '\'' +
+                ", SendDate=" + SendDate +
+                '}';
+    }
 }
