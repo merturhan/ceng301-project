@@ -65,4 +65,15 @@ public class Bill {
             default -> null;
         };
     }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "billID=" + billID +
+                ", billDesc='" + billDesc + '\'' +
+                ", subscriptionID=" + subscriptionID +
+                ", billAmount=" + billAmount +
+                ", billImage='" + billImage + '\'' +
+                '}';
+    }
 }
