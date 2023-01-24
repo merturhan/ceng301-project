@@ -98,4 +98,18 @@ public class Decisions {
             default -> null;
         };
     }
+
+    @Override
+    public String toString() {
+        return "Decisions{" +
+                "DecisionID=" + DecisionID +
+                ", ApartmentID=" + ApartmentID +
+                ", DecisionDescription='" + DecisionDescription + '\'' +
+                ", VoteYes=" + VoteYes +
+                ", VoteNo=" + VoteNo +
+                ", DecisionDate=" + DecisionDate +
+                ", isAccepted='" + isAccepted + '\'' +
+                ", isFullOrMajority='" + isFullOrMajority + '\'' +
+                '}';
+    }
 }
