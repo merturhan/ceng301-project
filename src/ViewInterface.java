@@ -86,6 +86,7 @@ interface ViewInterface {
 			case 3 -> funcName = "Unpaid Dues";
 			case 4 -> funcName = "Average expenses in period";
 			case 5 -> funcName = "Subscriptions in apartment";
+			case 6 -> funcName = "Expense/due balance in period";
 		}
 		return funcName;
 	}
@@ -122,6 +123,132 @@ interface ViewInterface {
 				System.out.print(residentID + "\t");
 				System.out.print(receiptAmount + "\t");
 				System.out.println(date + "\t");
+
+			}
+			resultSet.close();
+		}
+		else if (function.equals("Moved Residents"))
+		{
+			stringBuilder.append("select distinct residentID,m.apartmentID,residentName,oldFlatID,newFlatID ");
+			stringBuilder.append("from Resident r inner join movedFlat m on r.flatId = m.oldFlatID");
+
+			PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{
+				int residentID = resultSet.getInt("ResidentID");
+				int apartmentID =  resultSet.getInt("apartmentID");
+				String residentName = resultSet.getString("residentName");
+				int oldFlatID =  resultSet.getInt("oldFlatID");
+				int newFlatID = resultSet.getInt("newFlatID");
+
+				System.out.print(residentID + "\t");
+				System.out.print(apartmentID + "\t");
+				System.out.print(residentName + "\t");
+				System.out.print(oldFlatID + "\t");
+				System.out.println(newFlatID + "\t");
+
+			}
+			resultSet.close();
+
+		}
+		else if (function.equals("Unpaid Dues"))
+		{
+
+			stringBuilder.append("select residentID,apartmentID,residentName,residentPhoneNum,flatId from Resident r where r.paidFlag = 0 ");
+
+			PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{
+				int residentID = resultSet.getInt("ResidentID");
+				int apartmentID =  resultSet.getInt("apartmentID");
+				String residentName = resultSet.getString("residentName");
+				String residentPhoneNum =  resultSet.getString("residentPhoneNum");
+				int flatID = resultSet.getInt("flatID");
+
+				System.out.print(residentID + "\t");
+				System.out.print(apartmentID + "\t");
+				System.out.print(residentName + "\t");
+				System.out.print(residentPhoneNum + "\t");
+				System.out.println(flatID + "\t");
+
+			}
+			resultSet.close();
+		}
+		else if (function.equals("Average expenses in period"))
+		{
+			String firstP = null, secP = null;
+			System.out.println("Enter first date of period: ");
+			firstP = scanner.nextLine();
+			System.out.println("Enter second date of period: ");
+			secP = scanner.nextLine();
+			stringBuilder.append("select r.ReceiptDescription, avg(ReceiptAmount) as AverageExpense ");
+			stringBuilder.append("from Receipt r inner join Expense e on r.ReceiptID = e.ReceiptId ");
+			stringBuilder.append("where ReceiptTime between '").append(firstP).append("' and '").append(secP).append("' ");
+			stringBuilder.append("group by ReceiptDescription");
+
+			PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{
+				String receiptDesc = resultSet.getString("ReceiptDescription");
+				float avgExpense =  resultSet.getFloat("AverageExpense");
+
+				System.out.print(receiptDesc + "\t");
+				System.out.println(avgExpense + "\t");
+
+			}
+			resultSet.close();
+
+		}
+		else if (function.equals("Subscriptions in apartment"))
+		{
+			stringBuilder.append("select s.SubscriptionType, m.managerID, m.managerName, a.apartmentID, a.apartmentName ");
+			stringBuilder.append("from Subscription s inner join Manager m on s.managerID = m.managerID inner join Apartment a on a.apartmentID = m.apartmentID");
+
+			PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{
+				String subscriptionType =  resultSet.getString("SubscriptionType");
+				int managerID = resultSet.getInt("managerID");
+				String managerName = resultSet.getString("managerName");
+				int apartmentID =  resultSet.getInt("apartmentID");
+				String apartmentName = resultSet.getString("apartmentName");
+
+				System.out.print(subscriptionType + "\t");
+				System.out.print(managerID + "\t");
+				System.out.print(managerName + "\t");
+				System.out.print(apartmentID + "\t");
+				System.out.println(apartmentName + "\t");
+
+			}
+			resultSet.close();
+
+
+		}
+		else if (function.equals("Expense/due balance in period"))
+		{
+			String firstP = null, secP = null;
+			System.out.println("Enter first date of period: ");
+			firstP = scanner.nextLine();
+			System.out.println("Enter second date of period: ");
+			secP = scanner.nextLine();
+			stringBuilder.append("WITH totaldue(TotalDue) as (SELECT sum(ReceiptAmount) as TotalDue FROM Receipt ").append("where ReceiptTime between '").append(firstP).append("' and '").append(secP).append("' ").append("), ");
+			stringBuilder.append("totalexpense(TotalExpense) as (SELECT sum(ReceiptAmount) as TotalExpense from Receipt r inner join Expense e on r.ReceiptID = e.ReceiptId ").append("where ReceiptTime between '").append(firstP).append("' and '").append(secP).append("' ").append(") ");
+			stringBuilder.append("SELECT * FROM totaldue, totalexpense");
+
+			PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{
+				float totalDue = resultSet.getFloat("TotalDue");
+				float totalExpense =  resultSet.getFloat("TotalExpense");
+
+				System.out.print("Total Due: " + totalDue + "\t");
+				System.out.println("Total Expense: " + totalExpense + "\t");
+				System.out.println("Expense/due balance: " + totalDue / totalExpense );
 
 			}
 			resultSet.close();

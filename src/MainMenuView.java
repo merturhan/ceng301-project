@@ -66,6 +66,7 @@ class MainMenuView implements ViewInterface {
 							3. Unpaid Dues
 							4. Average expenses in period
 							5. Subscriptions in apartment
+							6. Expense/due balance in period
 								""");
 
 					choice = getInteger("Enter your choice : ", false);
@@ -83,7 +84,7 @@ class MainMenuView implements ViewInterface {
 		}
 		while (choice == null || choice < 1 || choice > 6);
 
-		if (function.equals("Expense in period")) return new ViewData(null, null);
+		if (function.equals("Expenses in period")) return new ViewData(null, null);
 		else if (function.equals("Moved Residents")) return new ViewData(null, null);
 		else if (function.equals("Unpaid Dues")) return new ViewData(null, null);
 		else if (function.equals("Average expenses in period")) return new ViewData(null, null);
