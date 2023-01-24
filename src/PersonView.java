@@ -98,7 +98,6 @@ public class PersonView implements ViewInterface {
             personStatus = getInteger("Person Status : ", true);
             System.out.println();
 
-            System.out.println(personStatus);
 
             if (apartmentID != null && personName != null && personStatus != null) {
                 rows.add(new Person(apartmentID,personName, personStatus));

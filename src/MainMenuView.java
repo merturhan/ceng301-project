@@ -69,9 +69,10 @@ class MainMenuView implements ViewInterface {
 								""");
 
 					choice = getInteger("Enter your choice : ", false);
-					if (choice > 6 || choice < 1) return new ViewData(null, null);
 					function = reportMenu(choice);
+					System.out.println(function);
 					executeReport(function);
+					//if (choice > 6 || choice < 1) return new ViewData(null, null);
 				}
 				default -> {
 					return new ViewData(null, null);
@@ -82,6 +83,11 @@ class MainMenuView implements ViewInterface {
 		}
 		while (choice == null || choice < 1 || choice > 6);
 
+		if (function.equals("Expense in period")) return new ViewData(null, null);
+		else if (function.equals("Moved Residents")) return new ViewData(null, null);
+		else if (function.equals("Unpaid Dues")) return new ViewData(null, null);
+		else if (function.equals("Average expenses in period")) return new ViewData(null, null);
+		else if (function.equals("Subscriptions in apartment")) return new ViewData(null, null);
 
 		Map<String, Object> userInput = new HashMap<>();
 		userInput.put("mainMenuChoice", choice);
@@ -129,6 +135,11 @@ class MainMenuView implements ViewInterface {
 				}
 			}
 		}
+		else if (function.equals("Expense in period")) return new ViewData(null, null);
+		else if (function.equals("Moved Residents")) return new ViewData(null, null);
+		else if (function.equals("Unpaid Dues")) return new ViewData(null, null);
+		else if (function.equals("Average expenses in period")) return new ViewData(null, null);
+		else if (function.equals("Subscriptions in apartment")) return new ViewData(null, null);
 		else
 		{
 			switch (choice) {

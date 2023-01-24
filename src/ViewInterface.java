@@ -1,4 +1,6 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.*;
 import java.util.*;
@@ -91,9 +93,38 @@ interface ViewInterface {
 	public default void executeReport(String function) throws SQLException {
 		Connection connection = DatabaseUtilities.getConnection();
 		StringBuilder stringBuilder = new StringBuilder();
-		if (function.equals("Expenses in Period"))
+		if (function.equals("Expenses in period"))
 		{
-			/*stringBuilder.append("");*/
+			String firstP = null, secP = null;
+			System.out.println("Enter first date of period: ");
+			firstP = scanner.nextLine();
+			System.out.println("Enter second date of period: ");
+			secP = scanner.nextLine();
+			stringBuilder.append("select * from Expense e inner join Receipt r on e.ReceiptId = r.ReceiptID ");
+			stringBuilder.append("where ReceiptTime between '").append(firstP).append("' and '").append(secP).append("'");
+
+			PreparedStatement preparedStatement = connection.prepareStatement(stringBuilder.toString());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{
+				int expenseID = resultSet.getInt("ExpenseId");
+				int receiptID =  resultSet.getInt("ReceiptId");
+				int controllerID = resultSet.getInt("ControllerId");
+				String receiptDesc = resultSet.getString("ReceiptDescription");
+				int residentID =  resultSet.getInt("ResidentID");
+				float receiptAmount =  resultSet.getFloat("ReceiptAmount");
+				Date date =  resultSet.getDate("ReceiptTime");
+
+				System.out.print(expenseID + "\t");
+				System.out.print(receiptID + "\t");
+				System.out.print(controllerID + "\t");
+				System.out.print(receiptDesc + "\t");
+				System.out.print(residentID + "\t");
+				System.out.print(receiptAmount + "\t");
+				System.out.println(date + "\t");
+
+			}
+			resultSet.close();
 		}
 	}
 	public default Float getFloat(String prompt, boolean allowNulls) throws ParseException{
