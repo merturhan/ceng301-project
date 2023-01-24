@@ -18,7 +18,7 @@ public class ReceiptView implements ViewInterface{
                 Date ReceiptTime = resultSet.getDate("ReceiptTime");
 
                 // Display values
-                System.out.print( ReceiptID+ "\t");
+                System.out.print(ReceiptID+ "\t");
                 System.out.print(ReceiptDescription + "\t");
                 System.out.print(ResidentID + "\t");
                 System.out.print(ReceiptAmount+ "\t");
