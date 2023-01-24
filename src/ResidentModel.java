@@ -57,10 +57,7 @@ public class ResidentModel implements ModelInterface{
             }
         }
         //System.out.println(sql.toString());
-
-        //int residetCounter = getResidentCounter(aptID);
         System.out.println(aptID);
-
 
         // execute constructed SQL statement
         if (rowCount > 0) {
@@ -103,7 +100,7 @@ public class ResidentModel implements ModelInterface{
     public int delete(Map<String, Object> whereParameters) throws Exception {
         // construct SQL statement
         StringBuilder sql = new StringBuilder();
-        sql.append(" DELETE FROM dbo.Person ");
+        sql.append(" DELETE FROM dbo.Resident ");
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -142,7 +139,6 @@ public class ResidentModel implements ModelInterface{
             rs = stmt.executeQuery(query);
             while ( rs.next() ) {
                 residentCount = rs.getInt("residentCount");
-                System.out.println("Resident count in " + ApartmentID +" is equals = " + residentCount);
             }
             conn.close();
         } catch (Exception e) {
