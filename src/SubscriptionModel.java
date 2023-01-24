@@ -74,7 +74,7 @@ public class SubscriptionModel implements ModelInterface{
         System.out.print("billDesc: ");
         String billDesc = scan.nextLine();
         System.out.print("billAmount: ");
-        int billAmount = scan.nextInt();
+        Float billAmount = scan.nextFloat();
         System.out.print("Image URL: ");
         String image = scan.next();
 
