@@ -51,8 +51,8 @@ public class ModelViewControllerConsole {
 	
 	public static void connectToDatabase() {
 		//DatabaseUtilities.host = "UBO:55161";
-		DatabaseUtilities.host = "DESKTOP-E6ERJ05\\SQLEXPRESS01";
-		//DatabaseUtilities.host = "DESKTOP-M8BB118\\SQLEXPRESS:49670";
+		//DatabaseUtilities.host = "DESKTOP-E6ERJ05\\SQLEXPRESS01";
+		DatabaseUtilities.host = "DESKTOP-M8BB118\\SQLEXPRESS:49670";
 		DatabaseUtilities.databaseName = "BuildingSiteManagement";
 		
 		try {
