@@ -28,7 +28,7 @@ public class BillView implements ViewInterface {
 
                 Integer subscriptionID = resultSet.getInt("subscriptionID");
                 Float billAmount = resultSet.getFloat("billAmount");
-                String image = resultSet.getString(("image"));
+                String billImage = resultSet.getString(("billImage"));
 
 
                 // Display values
@@ -36,7 +36,7 @@ public class BillView implements ViewInterface {
                 System.out.print(billDesc + "\t");
                 System.out.print(subscriptionID + "\t");
                 System.out.print(billAmount + "\t");
-                System.out.println(image);
+                System.out.println(billImage);
 
             }
             resultSet.close();
@@ -70,7 +70,7 @@ public class BillView implements ViewInterface {
         String billDesc = getString("billDesc", true);
         Integer subscriptionID = getInteger("subscriptionID : ", true);
         Float billAmount = getFloat("billAmount : ", true);
-        String image = getString("image", true);
+        String billImage = getString("billImage", true);
 
 
         Map<String, Object> whereParameters = new HashMap<>();
@@ -78,7 +78,7 @@ public class BillView implements ViewInterface {
         if (billDesc != null) whereParameters.put("billDesc", billDesc);
         if (subscriptionID != null) whereParameters.put("subscriptionID", subscriptionID);
         if (billAmount != null) whereParameters.put("billAmount", billAmount);
-        if (image != null) whereParameters.put("image", image);
+        if (billImage != null) whereParameters.put("billImage", billImage);
 
         return whereParameters;
     }
@@ -92,11 +92,11 @@ public class BillView implements ViewInterface {
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "billDesc,subscriptionID,billAmount,image");
+        parameters.put("fieldNames", "billDesc,subscriptionID,billAmount,billImage");
 
         List<Object> rows = new ArrayList<>();
 
-        String billDesc,image;
+        String billDesc,billImage;
         Float billAmount;
         Integer subscriptionID;
         do {
@@ -105,18 +105,18 @@ public class BillView implements ViewInterface {
             billDesc = getString("billDesc", true);
             subscriptionID = getInteger("subscriptionID : ", true);
             billAmount = getFloat("billAmount : ", true);
-            image = getString("image", true);
+            billImage = getString("billImage", true);
 
             System.out.println();
 
-            if (billDesc != null && subscriptionID != null && billAmount != null && image != null) {
+            if (billDesc != null && subscriptionID != null && billAmount != null && billImage != null) {
 
-                rows.add(new Bill(billDesc, subscriptionID, billAmount, image));
+                rows.add(new Bill(billDesc, subscriptionID, billAmount, billImage));
 
 
             }
         }
-        while (billDesc != null && subscriptionID != null && billAmount != null && image != null);
+        while (billDesc != null && subscriptionID != null && billAmount != null && billImage != null);
 
         parameters.put("rows", rows);
 
@@ -129,14 +129,14 @@ public class BillView implements ViewInterface {
         String billDesc = getString("billDesc", true);
         Integer subscriptionID = getInteger("subscriptionID : ", true);
         Float billAmount = getFloat("billAmount : ", true);
-        String image = getString("image", true);
+        String billImage = getString("billImage", true);
        System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
         if (billDesc != null) updateParameters.put("billDesc", billDesc);
         if (subscriptionID != null) updateParameters.put("subscriptionID", subscriptionID);
         if (billAmount != null) updateParameters.put("billAmount", billAmount);
-        if (image != null) updateParameters.put("image", image);
+        if (billImage != null) updateParameters.put("billImage", billImage);
 
 
         Map<String, Object> parameters = new HashMap<>();

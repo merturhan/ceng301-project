@@ -84,12 +84,12 @@ public class ReceiptModel implements ModelInterface {
         System.out.println("Is expense or payment? (e,p)");
         String choice = scan.nextLine();
         if(choice.equals("e")){
-            System.out.println("girdi");
             sql2.append("INSERT INTO Expense ");
             sql2.append("(ReceiptId, ControllerId) ");
-            sql2.append("SELECT ReceiptId, " );
-            sql2.append("ControllerId ");
-            sql2.append("FROM Receipt ");
+            sql2.append("SELECT top 1 r.ReceiptId, " );
+            sql2.append("c.ControllerId ");
+            sql2.append("FROM Receipt r, Controller c ");
+            sql2.append("order by ReceiptId desc ");
 
         }
 
@@ -97,8 +97,9 @@ public class ReceiptModel implements ModelInterface {
 
             sql2.append("INSERT INTO dbo.Payment ");
             sql2.append("(ResidentId, ReceiptId) ");
-            sql2.append("SELECT ResidentId, ReceiptId ");
+            sql2.append("SELECT top 1 ResidentId, ReceiptId ");
             sql2.append("FROM dbo.Receipt ");
+            sql2.append("order by ReceiptId desc ");
 
         }
         else{

@@ -5,14 +5,14 @@ public class Bill {
     String billDesc;
     int subscriptionID;
     float billAmount;
-    String image;
+    String billImage;
 
 
     public Bill(String billDesc, int subscriptionID, float billAmount, String image) {
         this.billDesc = billDesc;
         this.subscriptionID = subscriptionID;
         this.billAmount = billAmount;
-        this.image = image;
+        this.billImage = image;
     }
 
     public int getBillID() {
@@ -47,12 +47,12 @@ public class Bill {
         this.billAmount = billAmount;
     }
 
-    public String getImage() {
-        return image;
+    public String getBillImage() {
+        return billImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setBillImage(String billImage) {
+        this.billImage = billImage;
     }
     public Object getByName(String attributeName){
         return switch(attributeName){
@@ -60,7 +60,7 @@ public class Bill {
             case "billDesc" -> billDesc;
             case "subscriptionID" -> subscriptionID;
             case "billAmount" -> billAmount;
-            case "image" -> image;
+            case "billImage" -> billImage;
 
             default -> null;
         };

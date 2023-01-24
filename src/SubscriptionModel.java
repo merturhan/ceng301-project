@@ -12,7 +12,7 @@ public class SubscriptionModel implements ModelInterface{
         StringBuilder sql = new StringBuilder();
         sql.append(" SELECT ");
         sql.append(" * ");
-        sql.append(" FROM dbo.Subsciption ");
+        sql.append(" FROM dbo.Subscription ");
 
         List<Map.Entry<String, Object>> whereParameterList = DatabaseUtilities.createWhereParameterList(whereParameters);
         sql.append(DatabaseUtilities.prepareWhereStatement(whereParameterList));
@@ -69,23 +69,24 @@ public class SubscriptionModel implements ModelInterface{
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
             rowCount = preparedStatement.executeUpdate();
             preparedStatement.close();
-        }System.out.println("");
+        }
         StringBuilder sql2 = new StringBuilder();
         System.out.print("billDesc: ");
         String billDesc = scan.nextLine();
         System.out.print("billAmount: ");
-        int billAmount = scan.nextInt();
+        double billAmount = scan.nextDouble();
+        System.out.println(billAmount);
         System.out.print("Image URL: ");
         String image = scan.next();
 
         sql2.append("INSERT INTO Bill ");
-        sql2.append("(billDesc, subscriptionID, billAmount, image) ");
-        sql2.append("SELECT " );
-        sql2.append("'"+billDesc+"', ");
+        sql2.append("(billDesc, subscriptionID, billAmount, billImage) ");
+        sql2.append("SELECT top 1 " );
+        sql2.append("'").append(billDesc).append("', ");
         sql2.append("subscriptionID, ");
-        sql2.append(" "+billAmount+",'"+image+"' ");
-
+        sql2.append(" ").append(billAmount).append(",'").append(image).append("' ");
         sql2.append("FROM Subscription ");
+        sql2.append("order by subscriptionID desc ");
 
         Connection connection = DatabaseUtilities.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
