@@ -10,24 +10,65 @@ interface ViewInterface {
 	{
 		String tableName = null;
 		switch (choice) {
-			case 1 -> tableName = "Person";
-			case 2 -> tableName = "Manager";
-			case 3 -> tableName = "AssistantManager";
-			case 4 -> tableName = "Controller";
-			case 5 -> tableName = "Resident";
+			case 1 -> {
+				tableName = "Person";
+				System.out.println("1. Show all " + tableName);
+				System.out.println("2. Show "+ tableName);
+				System.out.println("3. Add a "+ tableName);
+				System.out.println("4. Update a "+ tableName);
+				System.out.println("5. Delete a "+ tableName);
+				System.out.println("6. Return to Table Menu ");
+				System.out.println("7. Return to Main Menu ");
+			}
+			case 2 -> {
+				tableName = "Manager";
+				System.out.println("1. Show all " + tableName);
+				System.out.println("2. Show "+ tableName);
+				System.out.println("3. Update a "+ tableName);
+				System.out.println("4. Return to Table Menu ");
+				System.out.println("5. Return to Main Menu ");
+			}
+			case 3 -> {
+				tableName = "AssistantManager";
+				System.out.println("1. Show all " + tableName);
+				System.out.println("2. Show "+ tableName);
+				System.out.println("3. Update a "+ tableName);
+				System.out.println("4. Return to Table Menu ");
+				System.out.println("5. Return to Main Menu ");
+			}
+			case 4 -> {
+				tableName = "Controller";
+				System.out.println("1. Show all " + tableName);
+				System.out.println("2. Show "+ tableName);
+				System.out.println("3. Update a "+ tableName);
+				System.out.println("4. Return to Table Menu ");
+				System.out.println("5. Return to Main Menu ");
+			}
+			case 5 -> {
+				tableName = "Resident";
+				System.out.println("1. Show all " + tableName);
+				System.out.println("2. Show "+ tableName);
+				System.out.println("3. Update a "+ tableName);
+				System.out.println("4. Return to Table Menu ");
+				System.out.println("5. Return to Main Menu ");
+			}
 			case 6 -> tableName = "Apartment";
 			case 7 -> tableName = "Receipt";
 			case 8 -> tableName = "Payment";
 			case 9 -> tableName = "Expense";
 			case 10 -> tableName = "Decisions";
+			case 11 -> tableName = "movedFlat";
 		}
-		System.out.println("1. Show all " + tableName);
-		System.out.println("2. Show "+ tableName);
-		System.out.println("3. Add a "+ tableName);
-		System.out.println("4. Update a "+ tableName);
-		System.out.println("5. Delete a "+ tableName);
-		System.out.println("6. Return to Table Menu ");
-		System.out.println("7. Return to Main Menu ");
+		if (choice > 5)
+		{
+			System.out.println("1. Show all " + tableName);
+			System.out.println("2. Show "+ tableName);
+			System.out.println("3. Add a "+ tableName);
+			System.out.println("4. Update a "+ tableName);
+			System.out.println("5. Delete a "+ tableName);
+			System.out.println("6. Return to Table Menu ");
+			System.out.println("7. Return to Main Menu ");
+		}
 		return tableName;
 	}
 

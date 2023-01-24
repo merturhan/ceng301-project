@@ -92,13 +92,13 @@ public class PersonModel implements ModelInterface {
                 // manager is not resident
                 sql2.append("INSERT INTO Manager ");
                 sql2.append("(personID,apartmentID,managerName) ");
-                sql2.append("SELECT t1.personID, ");
-                sql2.append("t1.apartmentID, ");
-                sql2.append("t1.personName ");
-                sql2.append("FROM Person t1 ");
-                sql2.append("WHERE NOT EXISTS(SELECT personID ");
-                sql2.append("FROM Resident t2 ");
-                sql2.append("WHERE t2.personID = t1.personID) ");
+                sql2.append("SELECT DISTINCT r.personID ");
+                sql2.append(",r.apartmentID ");
+                sql2.append(",r.residentID ");
+                sql2.append(",r.residentName ");
+                sql2.append("FROM Resident r, Person p ");
+                sql2.append("WHERE NOT EXISTS(SELECT residentID FROM Manager m ");
+                sql2.append("where m.residentID = r.residentID) and p.personStatus = 1) ");
             }
             else System.out.println("Unrecognized answer.");
 
@@ -226,9 +226,9 @@ public class PersonModel implements ModelInterface {
         sql2.append(",r.apartmentID ");
         sql2.append(",r.residentID ");
         sql2.append(",r.residentName ");
-        sql2.append("FROM Resident r ");
+        sql2.append("FROM Resident r, Person p ");
         sql2.append("WHERE NOT EXISTS(SELECT residentID FROM Manager m ");
-        sql2.append("where m.residentID = r.residentID) ");
+        sql2.append("where m.residentID = r.residentID) and p.personStatus = 1 ");
     }
 
 

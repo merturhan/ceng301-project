@@ -30,10 +30,15 @@ public class ReceiptModel implements ModelInterface {
     public int insert(String fieldNames, List<Object> rows) throws Exception {
         StringBuilder sql = new StringBuilder();
         StringBuilder sql2 = new StringBuilder();
+
+
         sql.append(" INSERT INTO dbo.Receipt (").append(fieldNames).append(") ");
         sql.append(" VALUES ");
 
         String[] fieldList = fieldNames.split(",");
+
+        String ReceiptDescription = "";
+        int ResidentID = 0;
 
         //for(String s:fieldList) System.out.println(s);
         int rowCount = 0;
@@ -49,6 +54,8 @@ public class ReceiptModel implements ModelInterface {
                         sql.append(", ");
                     }
                 }
+                ReceiptDescription = receipt.getReceiptDescription();
+                ResidentID = receipt.getResidentID();
                 sql.append(")");
                 if (i < rows.size() - 1) {
                     sql.append(", ");
@@ -59,7 +66,19 @@ public class ReceiptModel implements ModelInterface {
             Connection connection = DatabaseUtilities.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
             rowCount = preparedStatement.executeUpdate();
-            preparedStatement.close();
+
+            if(ReceiptDescription.equals("Due")){
+                StringBuilder sql3 = new StringBuilder();
+
+                sql3.append("UPDATE Resident\n" +
+                        "SET paidFlag = 1\n" +
+                        "Where residentID = " + ResidentID + "and paidFlag = 0");
+
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql3.toString());
+                preparedStatement1.executeUpdate();
+
+            }
+
         }
 
         System.out.println("Is expense or payment? (e,p)");

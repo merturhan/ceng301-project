@@ -19,6 +19,7 @@ public class ModelViewControllerConsole {
 		router.put("Receipt", new Controller(new ReceiptView(), new ReceiptModel()));
 		router.put("Expense", new Controller(new ExpenseView(), new ExpenseModel()));
 		router.put("Payment", new Controller(new PaymentView(), new PaymentModel()));
+		router.put("movedFlat", new Controller(new MovedFlatView(), new MovedFlatModel()));
 
 
 
@@ -46,8 +47,8 @@ public class ModelViewControllerConsole {
 
 	
 	public static void connectToDatabase() {
-		//DatabaseUtilities.host = "UBO:55161";
-		DatabaseUtilities.host = "DESKTOP-E6ERJ05\\SQLEXPRESS01";
+		DatabaseUtilities.host = "UBO:55161";
+		//DatabaseUtilities.host = "DESKTOP-E6ERJ05\\SQLEXPRESS01";
 		DatabaseUtilities.databaseName = "BuildingSiteManagement";
 		
 		try {

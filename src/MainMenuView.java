@@ -15,7 +15,6 @@ class MainMenuView implements ViewInterface {
 
 			choice = getInteger("Enter your choice : ", false);
 
-
 			switch (choice) {
 				case 1 -> {
 					do
@@ -33,13 +32,24 @@ class MainMenuView implements ViewInterface {
 							8. Payment
 							9. Expense
 							10. Decisions
+							11. MovedFlat
 								""");
 						choice = getInteger("Enter your choice : ", false);
-						if (choice > 10 || choice < 1) return new ViewData(null, null);
+						if (choice > 11 || choice < 1) return new ViewData(null, null);
 
 						function = optionMenu(choice);
-
 						choice = getInteger("Enter your choice : ", false);
+						if (function.equals("Manager") && choice == 4) choice = 6;
+						else if (function.equals("Manager") && choice == 5) choice = 7;
+
+						if (function.equals("AssistantManager") && choice == 4) choice = 6;
+						else if (function.equals("AssistantManager") && choice == 5) choice = 7;
+
+						if (function.equals("Controller") && choice == 4) choice = 6;
+						else if (function.equals("Controller") && choice == 5) choice = 7;
+
+						if (function.equals("Resident") && choice == 4) choice = 6;
+						else if (function.equals("Resident") && choice == 5) choice = 7;
 					}while(choice == 6);
 
 				}
@@ -65,23 +75,71 @@ class MainMenuView implements ViewInterface {
 				}
 			}
 
+
 		}
 		while (choice == null || choice < 1 || choice > 6);
 
 
 		Map<String, Object> userInput = new HashMap<>();
 		userInput.put("mainMenuChoice", choice);
-
-		switch (choice) {
-			case 1 -> operationName = "select";
-			case 2 -> operationName = "select.gui";
-			case 3 -> operationName = "insert.gui";
-			case 4 -> operationName = "update.gui";
-			case 5 -> operationName = "delete.gui";
-			default -> {
-				return new ViewData(null, null);
+		if (function.equals("Manager"))
+		{
+			switch (choice) {
+				case 1 -> operationName = "select";
+				case 2 -> operationName = "select.gui";
+				case 3 -> operationName = "update.gui";
+				default -> {
+					return new ViewData(null, null);
+				}
 			}
 		}
+		else if (function.equals("AssistantManager"))
+		{
+			switch (choice) {
+				case 1 -> operationName = "select";
+				case 2 -> operationName = "select.gui";
+				case 3 -> operationName = "update.gui";
+				default -> {
+					return new ViewData(null, null);
+				}
+			}
+		}
+		else if (function.equals("Controller"))
+		{
+			switch (choice) {
+				case 1 -> operationName = "select";
+				case 2 -> operationName = "select.gui";
+				case 3 -> operationName = "update.gui";
+				default -> {
+					return new ViewData(null, null);
+				}
+			}
+		}
+		else if (function.equals("Resident"))
+		{
+			switch (choice) {
+				case 1 -> operationName = "select";
+				case 2 -> operationName = "select.gui";
+				case 3 -> operationName = "update.gui";
+				default -> {
+					return new ViewData(null, null);
+				}
+			}
+		}
+		else
+		{
+			switch (choice) {
+				case 1 -> operationName = "select";
+				case 2 -> operationName = "select.gui";
+				case 3 -> operationName = "insert.gui";
+				case 4 -> operationName = "update.gui";
+				case 5 -> operationName = "delete.gui";
+				default -> {
+					return new ViewData(null, null);
+				}
+			}
+		}
+
 
 		return new ViewData(function, operationName, new HashMap<>());
 	}
