@@ -32,7 +32,7 @@ public class ExpenseView implements ViewInterface {
                 // Display values
                 System.out.print(ExpenseId + "\t");
                 System.out.print(ReceiptId + "\t");
-                System.out.print(ControllerId);
+                System.out.println(ControllerId);
 
             }
             resultSet.close();

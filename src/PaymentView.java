@@ -31,7 +31,7 @@ public class PaymentView implements ViewInterface {
                 // Display values
                 System.out.print(PaymentId + "\t");
                 System.out.print(ResidentId + "\t");
-                System.out.print(ReceiptId);
+                System.out.println(ReceiptId);
 
             }
             resultSet.close();
