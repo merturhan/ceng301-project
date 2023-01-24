@@ -3,9 +3,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SubscriptionModel implements ModelInterface{
-
+    private Scanner scan = new Scanner(System.in);
     @Override
     public ResultSet select(Map<String, Object> whereParameters) throws Exception {
         StringBuilder sql = new StringBuilder();
@@ -68,7 +69,28 @@ public class SubscriptionModel implements ModelInterface{
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
             rowCount = preparedStatement.executeUpdate();
             preparedStatement.close();
-        }
+        }System.out.println("");
+        StringBuilder sql2 = new StringBuilder();
+        System.out.print("billDesc: ");
+        String billDesc = scan.nextLine();
+        System.out.print("billAmount: ");
+        int billAmount = scan.nextInt();
+        System.out.print("Image URL: ");
+        String image = scan.next();
+
+        sql2.append("INSERT INTO Bill ");
+        sql2.append("(billDesc, subscriptionID, billAmount, image) ");
+        sql2.append("SELECT " );
+        sql2.append("'"+billDesc+"', ");
+        sql2.append("subscriptionID, ");
+        sql2.append(" "+billAmount+",'"+image+"' ");
+
+        sql2.append("FROM Subscription ");
+
+        Connection connection = DatabaseUtilities.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
+        preparedStatement.execute();
+
 
         return rowCount;
     }

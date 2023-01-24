@@ -33,9 +33,12 @@ class MainMenuView implements ViewInterface {
 							9. Expense
 							10. Decisions
 							11. MovedFlat
+							12. Subscription
+							13. Bill
+							14. Message
 								""");
 						choice = getInteger("Enter your choice : ", false);
-						if (choice > 11 || choice < 1) return new ViewData(null, null);
+						if (choice > 14 || choice < 1) return new ViewData(null, null);
 
 						function = optionMenu(choice);
 						choice = getInteger("Enter your choice : ", false);

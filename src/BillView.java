@@ -1,6 +1,8 @@
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.util.*;
-public class SubscriptionView implements ViewInterface{
+
+public class BillView implements ViewInterface {
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
         return switch (operationName) {
             case "select" -> selectOperation(modelData);
@@ -14,28 +16,36 @@ public class SubscriptionView implements ViewInterface{
             default -> new ViewData("MainMenu", "");
         };
     }
+
     ViewData selectOperation(ModelData modelData) throws Exception {
         ResultSet resultSet = modelData.resultSet;
 
         if (resultSet != null) {
             while (resultSet.next()) {
                 // Retrieve by column name
-                Integer SubscriptionID = resultSet.getInt("SubscriptionID");
-                String SubscriptionType = resultSet.getString("SubscriptionType");
-                Integer managerID = resultSet.getInt("managerID");
+                Integer billID = resultSet.getInt("billID");
+                String billDesc = resultSet.getString("billDesc");
+
+                Integer subscriptionID = resultSet.getInt("subscriptionID");
+                Float billAmount = resultSet.getFloat("billAmount");
+                String image = resultSet.getString(("image"));
 
 
                 // Display values
-                System.out.print(SubscriptionID + "\t");
-                System.out.print(SubscriptionType + "\t");
-                System.out.print(managerID + "\t");
+                System.out.print(billID + "\t");
+                System.out.print(billDesc + "\t");
+                System.out.print(subscriptionID + "\t");
+                System.out.print(billAmount + "\t");
+                System.out.println(image);
 
             }
             resultSet.close();
         }
 
+
         return new ViewData("MainMenu", "");
     }
+
     ViewData insertOperation(ModelData modelData) throws Exception {
         System.out.println("Number of inserted rows is " + modelData.recordCount);
 
@@ -53,84 +63,96 @@ public class SubscriptionView implements ViewInterface{
 
         return new ViewData("MainMenu", "");
     }
+
     Map<String, Object> getWhereParameters() throws Exception {
         System.out.println("Filter conditions:");
-        Integer SubscriptionID = getInteger("SubscriptionID : ", true);
-        String SubscriptionType = getString("SubscriptionType : ", true);
-        Integer managerID = getInteger("managerID : ", true);
-
+        Integer billID = getInteger("billID : ", true);
+        String billDesc = getString("billDesc", true);
+        Integer subscriptionID = getInteger("subscriptionID : ", true);
+        Float billAmount = getFloat("billAmount : ", true);
+        String image = getString("image", true);
 
 
         Map<String, Object> whereParameters = new HashMap<>();
-        if (SubscriptionID != null) whereParameters.put("SubscriptionID", SubscriptionID);
-        if (SubscriptionType != null) whereParameters.put("SubscriptionType", SubscriptionType);
-        if (managerID != null) whereParameters.put("managerID", managerID);
-
+        if (billID != null) whereParameters.put("billID", billID);
+        if (billDesc != null) whereParameters.put("billDesc", billDesc);
+        if (subscriptionID != null) whereParameters.put("subscriptionID", subscriptionID);
+        if (billAmount != null) whereParameters.put("billAmount", billAmount);
+        if (image != null) whereParameters.put("image", image);
 
         return whereParameters;
     }
+
     ViewData selectGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Subscription", "select", parameters);
+        return new ViewData("Bill", "select", parameters);
     }
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "SubscriptionType,managerID");
+        parameters.put("fieldNames", "billDesc,subscriptionID,billAmount,image");
 
         List<Object> rows = new ArrayList<>();
-        String SubscriptionType;
-        Integer managerID;
 
+        String billDesc,image;
+        Float billAmount;
+        Integer subscriptionID;
         do {
             System.out.println("Fields to insert:");
-            SubscriptionType = getString("SubscriptionType : ", true);
-            managerID = getInteger("managerID  : ", true);
+
+            billDesc = getString("billDesc", true);
+            subscriptionID = getInteger("subscriptionID : ", true);
+            billAmount = getFloat("billAmount : ", true);
+            image = getString("image", true);
 
             System.out.println();
 
-            if (SubscriptionType != null && managerID != null ) {
+            if (billDesc != null && subscriptionID != null && billAmount != null && image != null) {
 
-                rows.add(new Subscription(SubscriptionType, managerID));
+                rows.add(new Bill(billDesc, subscriptionID, billAmount, image));
 
 
             }
         }
-        while (SubscriptionType != null && managerID != null );
+        while (billDesc != null && subscriptionID != null && billAmount != null && image != null);
 
         parameters.put("rows", rows);
 
-        return new ViewData("Subscription", "insert", parameters);
+        return new ViewData("Bill", "insert", parameters);
+
+
     }
     ViewData updateGUI(ModelData modelData) throws Exception {
         System.out.println("Fields to update:");
-        String SubscriptionType = getString("SubscriptionType : ", true);
-        Integer managerID = getInteger("managerID : ", true);
-
-        System.out.println();
+        String billDesc = getString("billDesc", true);
+        Integer subscriptionID = getInteger("subscriptionID : ", true);
+        Float billAmount = getFloat("billAmount : ", true);
+        String image = getString("image", true);
+       System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
-        if (SubscriptionType != null) updateParameters.put("SubscriptionType", SubscriptionType);
-        if (managerID != null) updateParameters.put("managerID", managerID);
+        if (billDesc != null) updateParameters.put("billDesc", billDesc);
+        if (subscriptionID != null) updateParameters.put("subscriptionID", subscriptionID);
+        if (billAmount != null) updateParameters.put("billAmount", billAmount);
+        if (image != null) updateParameters.put("image", image);
 
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Subscription", "update", parameters);
+        return new ViewData("Bill", "update", parameters);
     }
-
     ViewData deleteGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Subscription", "delete", parameters);
+        return new ViewData("Bill", "delete", parameters);
     }
     public String toString() {
-        return "SubscriptionView";
+        return "BillView";
     }
 
 }

@@ -1,6 +1,8 @@
 import java.sql.ResultSet;
 import java.util.*;
-public class SubscriptionView implements ViewInterface{
+
+public class MessageView implements  ViewInterface{
+    @Override
     public ViewData create(ModelData modelData, String functionName, String operationName) throws Exception {
         return switch (operationName) {
             case "select" -> selectOperation(modelData);
@@ -14,28 +16,31 @@ public class SubscriptionView implements ViewInterface{
             default -> new ViewData("MainMenu", "");
         };
     }
+
     ViewData selectOperation(ModelData modelData) throws Exception {
         ResultSet resultSet = modelData.resultSet;
 
         if (resultSet != null) {
             while (resultSet.next()) {
                 // Retrieve by column name
-                Integer SubscriptionID = resultSet.getInt("SubscriptionID");
-                String SubscriptionType = resultSet.getString("SubscriptionType");
-                Integer managerID = resultSet.getInt("managerID");
-
+                Integer ManagerID = resultSet.getInt("ManagerID");
+                Integer ResidentID = resultSet.getInt("ResidentID");
+                String Message = resultSet.getString("Message");
+                Date SendDate = resultSet.getDate("SendDate");
+                //int residentCounter = resultSet.getInt("residentCounter");
 
                 // Display values
-                System.out.print(SubscriptionID + "\t");
-                System.out.print(SubscriptionType + "\t");
-                System.out.print(managerID + "\t");
-
+                System.out.print(ManagerID + "\t");
+                System.out.print(ResidentID + "\t");
+                System.out.print(Message + "\t");
+                System.out.println(SendDate + "\t");
             }
             resultSet.close();
         }
 
         return new ViewData("MainMenu", "");
     }
+
     ViewData insertOperation(ModelData modelData) throws Exception {
         System.out.println("Number of inserted rows is " + modelData.recordCount);
 
@@ -53,84 +58,90 @@ public class SubscriptionView implements ViewInterface{
 
         return new ViewData("MainMenu", "");
     }
+
     Map<String, Object> getWhereParameters() throws Exception {
         System.out.println("Filter conditions:");
-        Integer SubscriptionID = getInteger("SubscriptionID : ", true);
-        String SubscriptionType = getString("SubscriptionType : ", true);
-        Integer managerID = getInteger("managerID : ", true);
-
+        Integer ManagerID = getInteger("Manager ID : ", true);
+        Integer ResidentID = getInteger("Resident ID : ", true);
+        String Message = getString("Message : ", true);
+        StringBuilder SendDate = getDate("Send Date (YYYY-MM-DD) : ", true);
 
 
         Map<String, Object> whereParameters = new HashMap<>();
-        if (SubscriptionID != null) whereParameters.put("SubscriptionID", SubscriptionID);
-        if (SubscriptionType != null) whereParameters.put("SubscriptionType", SubscriptionType);
-        if (managerID != null) whereParameters.put("managerID", managerID);
-
-
+        if (ManagerID != null) whereParameters.put("ManagerID", ManagerID);
+        if (ResidentID != null) whereParameters.put("ResidentID", ResidentID);
+        if (Message != null) whereParameters.put("Message", Message);
+        if (SendDate != null) whereParameters.put("SendDate", SendDate);
         return whereParameters;
     }
+
     ViewData selectGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Subscription", "select", parameters);
+        return new ViewData("Message", "select", parameters);
     }
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "SubscriptionType,managerID");
+        parameters.put("fieldNames", "ManagerID, ResidentID, Message, SendDate");
 
         List<Object> rows = new ArrayList<>();
-        String SubscriptionType;
-        Integer managerID;
 
-        do {
+        Integer ManagerID, ResidentID;
+        String Message;
+        StringBuilder SendDate;
+        do
+        {
             System.out.println("Fields to insert:");
-            SubscriptionType = getString("SubscriptionType : ", true);
-            managerID = getInteger("managerID  : ", true);
-
+            ManagerID = getInteger("Manager ID : ", true);
+            ResidentID = getInteger("Resident ID : ", true);
+            Message = getString("Message : ", true);
+            SendDate = getDate("Send Date : ", true);
             System.out.println();
 
-            if (SubscriptionType != null && managerID != null ) {
-
-                rows.add(new Subscription(SubscriptionType, managerID));
-
-
+            if (ManagerID != null && ResidentID != null && Message != null && SendDate != null) {
+                rows.add(new Message(ManagerID, ResidentID, Message, SendDate));
             }
         }
-        while (SubscriptionType != null && managerID != null );
+        while (ManagerID != null && ResidentID != null && Message != null && SendDate != null);
 
         parameters.put("rows", rows);
 
-        return new ViewData("Subscription", "insert", parameters);
+        return new ViewData("Message", "insert", parameters);
     }
+
     ViewData updateGUI(ModelData modelData) throws Exception {
         System.out.println("Fields to update:");
-        String SubscriptionType = getString("SubscriptionType : ", true);
-        Integer managerID = getInteger("managerID : ", true);
-
+        Integer ManagerID = getInteger("Manager ID : ", true);
+        Integer ResidentID = getInteger("Resident ID : ", true);
+        String Message = getString("Message : ", true);
+        StringBuilder SendDate = getDate("Send Date : ", true);
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
-        if (SubscriptionType != null) updateParameters.put("SubscriptionType", SubscriptionType);
-        if (managerID != null) updateParameters.put("managerID", managerID);
+        if (ManagerID != null) updateParameters.put("ManagerID", ManagerID);
+        if (ResidentID != null) updateParameters.put("ResidentID", ResidentID);
+        if (Message != null) updateParameters.put("Message", Message);
+        if (SendDate != null) updateParameters.put("SendDate", SendDate);
 
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Subscription", "update", parameters);
+        return new ViewData("Message", "update", parameters);
     }
 
     ViewData deleteGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("whereParameters", getWhereParameters());
 
-        return new ViewData("Subscription", "delete", parameters);
-    }
-    public String toString() {
-        return "SubscriptionView";
+        return new ViewData("Message", "delete", parameters);
     }
 
+    @Override
+    public String toString() {
+        return "MessageView{}";
+    }
 }

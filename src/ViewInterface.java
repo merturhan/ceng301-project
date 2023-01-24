@@ -58,8 +58,11 @@ interface ViewInterface {
 			case 9 -> tableName = "Expense";
 			case 10 -> tableName = "Decisions";
 			case 11 -> tableName = "movedFlat";
+			case 12 -> tableName = "Subscription";
+			case 13 -> tableName = "Bill";
+			case 14 -> tableName = "Message";
 		}
-		if (choice > 5)
+		if (choice > 5 && choice <= 14)
 		{
 			System.out.println("1. Show all " + tableName);
 			System.out.println("2. Show "+ tableName);
