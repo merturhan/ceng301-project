@@ -2,7 +2,7 @@ public class Subscription {
     private int SubscriptionID;
     private String SubscriptionType;
     private int managerID;
-    private int expenseID;
+
 
     public int getSubscriptionID() {
         return SubscriptionID;
@@ -28,25 +28,18 @@ public class Subscription {
         this.managerID = managerID;
     }
 
-    public int getExpenseID() {
-        return expenseID;
-    }
 
-    public void setExpenseID(int expenseID) {
-        this.expenseID = expenseID;
-    }
-
-    public Subscription(int subscriptionID, String subscriptionType, int managerID, int expenseID) {
+    public Subscription(int subscriptionID, String subscriptionType, int managerID) {
         this.SubscriptionID = subscriptionID;
         this.SubscriptionType = subscriptionType;
         this.managerID = managerID;
-        this.expenseID = expenseID;
+
     }
 
-    public Subscription(String subscriptionType, int managerID, int expenseID) {
+    public Subscription(String subscriptionType, int managerID) {
         this.SubscriptionType = subscriptionType;
         this.managerID = managerID;
-        this.expenseID = expenseID;
+
     }
 
     public Object getByName(String attributeName){
@@ -54,7 +47,7 @@ public class Subscription {
             case "SubscriptionID" -> SubscriptionID;
             case "SubscriptionType" -> SubscriptionType;
             case "managerID" -> managerID;
-            case "expenseID" -> expenseID;
+
             default -> null;
         };
     }

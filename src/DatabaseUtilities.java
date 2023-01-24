@@ -15,7 +15,7 @@ public class DatabaseUtilities {
 	// database connection
 	public static Connection getConnection() throws SQLException {
 		if (connection == null) {
-			String conUrl =   "jdbc:sqlserver://" + host + ";"
+			String conUrl =   "jdbc:sqlserver://" + host + ":1433;"
 							+ "DatabaseName=" + databaseName + ";"
 							+ ";encrypt=true;trustServerCertificate=true;integratedSecurity=true;";
 

@@ -71,21 +71,27 @@ public class SubscriptionModel implements ModelInterface{
             preparedStatement.close();
         }System.out.println("");
         StringBuilder sql2 = new StringBuilder();
-        System.out.println("billDesc: ");
+        System.out.print("billDesc: ");
         String billDesc = scan.nextLine();
-        System.out.println("billAmount: ");
+        System.out.print("billAmount: ");
         int billAmount = scan.nextInt();
-        System.out.println("Image URL");
-        String image = scan.nextLine();
+        System.out.print("Image URL: ");
+        String image = scan.next();
 
         sql2.append("INSERT INTO Bill ");
         sql2.append("(billDesc, subscriptionID, billAmount, image) ");
         sql2.append("SELECT " );
-        sql2.append(billDesc+" ");
+        sql2.append("'"+billDesc+"', ");
         sql2.append("subscriptionID, ");
-        sql2.append(" "+billAmount+","+image+" ");
+        sql2.append(" "+billAmount+",'"+image+"' ");
 
         sql2.append("FROM Subscription ");
+
+        Connection connection = DatabaseUtilities.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql2.toString());
+        preparedStatement.execute();
+
+
         return rowCount;
     }
     @Override

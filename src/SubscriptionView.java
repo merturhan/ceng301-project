@@ -23,13 +23,13 @@ public class SubscriptionView implements ViewInterface{
                 Integer SubscriptionID = resultSet.getInt("SubscriptionID");
                 String SubscriptionType = resultSet.getString("SubscriptionType");
                 Integer managerID = resultSet.getInt("managerID");
-                Integer expenseID = resultSet.getInt("expenseID");
+
 
                 // Display values
                 System.out.print(SubscriptionID + "\t");
                 System.out.print(SubscriptionType + "\t");
                 System.out.print(managerID + "\t");
-                System.out.print(expenseID);
+
             }
             resultSet.close();
         }
@@ -58,14 +58,14 @@ public class SubscriptionView implements ViewInterface{
         Integer SubscriptionID = getInteger("SubscriptionID : ", true);
         String SubscriptionType = getString("SubscriptionType : ", true);
         Integer managerID = getInteger("managerID : ", true);
-        Integer expenseID = getInteger("expenseID : ", true);
+
 
 
         Map<String, Object> whereParameters = new HashMap<>();
         if (SubscriptionID != null) whereParameters.put("SubscriptionID", SubscriptionID);
         if (SubscriptionType != null) whereParameters.put("SubscriptionType", SubscriptionType);
         if (managerID != null) whereParameters.put("managerID", managerID);
-        if (expenseID != null) whereParameters.put("expenseID", expenseID);
+
 
         return whereParameters;
     }
@@ -78,27 +78,27 @@ public class SubscriptionView implements ViewInterface{
 
     ViewData insertGUI(ModelData modelData) throws Exception {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("fieldNames", "SubscriptionType,managerID,expenseID ");
+        parameters.put("fieldNames", "SubscriptionType,managerID");
 
         List<Object> rows = new ArrayList<>();
         String SubscriptionType;
-        Integer managerID, expenseID;
+        Integer managerID;
 
         do {
             System.out.println("Fields to insert:");
             SubscriptionType = getString("SubscriptionType : ", true);
             managerID = getInteger("managerID  : ", true);
-            expenseID = getInteger("expenseID : ", true);
+
             System.out.println();
 
-            if (SubscriptionType != null && managerID != null && expenseID!=null) {
+            if (SubscriptionType != null && managerID != null ) {
 
-                rows.add(new Subscription(SubscriptionType, managerID,expenseID));
+                rows.add(new Subscription(SubscriptionType, managerID));
 
 
             }
         }
-        while (SubscriptionType != null && managerID != null && expenseID!=null);
+        while (SubscriptionType != null && managerID != null );
 
         parameters.put("rows", rows);
 
@@ -108,13 +108,13 @@ public class SubscriptionView implements ViewInterface{
         System.out.println("Fields to update:");
         String SubscriptionType = getString("SubscriptionType : ", true);
         Integer managerID = getInteger("managerID : ", true);
-        Integer expenseID = getInteger("expenseID : ", true);
+
         System.out.println();
 
         Map<String, Object> updateParameters = new HashMap<>();
         if (SubscriptionType != null) updateParameters.put("SubscriptionType", SubscriptionType);
         if (managerID != null) updateParameters.put("managerID", managerID);
-        if (expenseID != null) updateParameters.put("expenseID", expenseID);
+
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("updateParameters", updateParameters);

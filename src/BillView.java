@@ -36,7 +36,7 @@ public class BillView implements ViewInterface {
                 System.out.print(billDesc + "\t");
                 System.out.print(subscriptionID + "\t");
                 System.out.print(billAmount + "\t");
-                System.out.print(image);
+                System.out.println(image);
 
             }
             resultSet.close();
