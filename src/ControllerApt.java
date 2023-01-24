@@ -20,4 +20,14 @@ public class ControllerApt
             default -> null;
         };
     }
+
+    @Override
+    public String toString() {
+        return "ControllerApt{" +
+                "controllerID=" + controllerID +
+                ", personID=" + personID +
+                ", residentID=" + residentID +
+                ", controllerName='" + controllerName + '\'' +
+                '}';
+    }
 }
