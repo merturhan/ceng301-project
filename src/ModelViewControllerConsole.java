@@ -22,6 +22,7 @@ public class ModelViewControllerConsole {
 		router.put("movedFlat", new Controller(new MovedFlatView(), new MovedFlatModel()));
 		router.put("Subscription", new Controller(new SubscriptionView(), new SubscriptionModel()));
 		router.put("Bill", new Controller(new BillView(), new BillModel()));
+		router.put("Message", new Controller(new MessageView(), new MessageModel()));
 
 
 
