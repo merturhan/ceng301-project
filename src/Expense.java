@@ -45,4 +45,13 @@ public class Expense {
             default -> null;
         };
     }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "ExpenseId=" + ExpenseId +
+                ", ReceiptId=" + ReceiptId +
+                ", ControllerId=" + ControllerId +
+                '}';
+    }
 }
