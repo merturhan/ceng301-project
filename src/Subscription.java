@@ -51,4 +51,13 @@ public class Subscription {
             default -> null;
         };
     }
+
+    @Override
+    public String toString() {
+        return "Subscription{" +
+                "SubscriptionID=" + SubscriptionID +
+                ", SubscriptionType='" + SubscriptionType + '\'' +
+                ", managerID=" + managerID +
+                '}';
+    }
 }
