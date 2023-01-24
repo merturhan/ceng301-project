@@ -84,7 +84,7 @@ public class ReceiptModel implements ModelInterface {
         System.out.println("Is expense or payment? (e,p)");
         String choice = scan.nextLine();
         if(choice.equals("e")){
-            System.out.println("girdi");
+
             sql2.append("INSERT INTO Expense ");
             sql2.append("(ReceiptId, ControllerId) ");
             sql2.append("SELECT ReceiptId, " );
